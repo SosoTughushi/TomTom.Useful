@@ -1,0 +1,34 @@
+# workspace
+*.suo
+*.user
+*.sln.ide
+*.sln.cache
+*.sln.docstates
+.vs/
+.vscode/
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esult*/
+.idea/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+src/packages/
+
+# npm
+node_modules/
+npm-debug.log
+package-lock.json
+
+# project
+*.[Cc]ustom.*
+[Ll]ogs/
+tempkey.rsa
+.env
+[Rr]eports/
+
+# other
+Thumbs.db
+/[Bb]uild/*
