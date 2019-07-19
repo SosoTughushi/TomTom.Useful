@@ -13,6 +13,7 @@ namespace TomTom.Useful.AsyncToSync
         public AsyncToSyncConverterBase(int timeoutInMs)
         {
             this.subscriptions = new ConcurrentDictionary<TKey, Subscription>();
+            this.timeoutInMs = timeoutInMs;
         }
 
         protected abstract TKey ExtractKey(T item);

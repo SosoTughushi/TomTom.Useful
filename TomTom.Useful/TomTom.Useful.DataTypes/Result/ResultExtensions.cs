@@ -13,10 +13,10 @@ namespace TomTom.Useful.DataTypes
             var res = source;
             if (!res.Success)
                 return res;
-            return successFunc(res.Value, Result<TError>.Builder);
+            return successFunc(res.Value, Result<TError>.Factory);
         }
 
-        public static Result<TError> Map<T, TError>
+        public static Result<TError> OnSuccess<T, TError>
             (this Result<T, TError> source, Action<T> successFunc)
         {
             return source.Bind((prevResult, builder) =>
@@ -27,7 +27,7 @@ namespace TomTom.Useful.DataTypes
         }
         #endregion
 
-        #region this Result<T> => Result<TResult>
+        #region this Result<T,TError> => Result<T,TResult>
 
         //bind with builder
         public static Result<TResult, TError> Bind<T, TError, TResult>
@@ -36,7 +36,7 @@ namespace TomTom.Useful.DataTypes
             var res = source;
             if (!res.Success)
                 return Result.Fail<TResult, TError>(res.Error);
-            return successFunc(res.Value, Result<TError>.Builder);
+            return successFunc(res.Value, Result<TError>.Factory);
         }
 
         public static Result<TResult, TError> Map<T, TError, TResult>
@@ -59,7 +59,7 @@ namespace TomTom.Useful.DataTypes
             var res = source;
             if (!res.Success)
                 return res;
-            return successFunc(Result<TError>.Builder);
+            return successFunc(Result<TError>.Factory);
         }
 
         public static Result<TError> Map<TError>
@@ -83,7 +83,7 @@ namespace TomTom.Useful.DataTypes
             if (!res.Success)
                 return Result.Fail<TResult, TError>(res.Error);
 
-            return successFunc(Result<TError>.Builder);
+            return successFunc(Result<TError>.Factory);
         }
 
         public static Result<TResult, TError> Map<TError, TResult>
@@ -120,13 +120,13 @@ namespace TomTom.Useful.DataTypes
 
             if (!result.Success)
             {
-                return Result<TNewError>.Builder.Fail(errorConverter(result.Error));
+                return Result<TNewError>.Factory.Fail(errorConverter(result.Error));
             }
 
-            return Result<TNewError>.Builder.Ok(result.Value);
+            return Result<TNewError>.Factory.Ok(result.Value);
         }
 
-        public static Result< TNewError> MapFail< TError, TNewError>(
+        public static Result< TNewError> MapFail<TError, TNewError>(
             this Result<TError> source,
             Func<TError, TNewError> errorConverter)
         {
@@ -134,10 +134,10 @@ namespace TomTom.Useful.DataTypes
 
             if (!result.Success)
             {
-                return Result<TNewError>.Builder.Fail(errorConverter(result.Error));
+                return Result<TNewError>.Factory.Fail(errorConverter(result.Error));
             }
 
-            return Result<TNewError>.Builder.Ok();
+            return Result<TNewError>.Factory.Ok();
         }
 
 

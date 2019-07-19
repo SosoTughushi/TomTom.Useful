@@ -36,17 +36,17 @@ namespace TomTom.Useful.AsyncToSync.Tests.AsyncToSyncConverter
                 Number = c
             }).ToList();
 
-            var converter = new Sut(5000);
+            var converter = new Sut(500);
 
             // act
             var awaiters = items.Select(c => converter.AwaitResult(c.CorrelationId)).ToArray();
-
+            var allAwaiter = Task.WhenAll(awaiters);
             Parallel.ForEach(items, item =>
             {
                 converter.SetResult(item);
             });
 
-            await Task.WhenAll(awaiters);
+            await allAwaiter;
 
             // assert
             var receivedItems = awaiters.Select(c => c.Result).OrderBy(c => c.Number).ToList();
@@ -66,7 +66,7 @@ namespace TomTom.Useful.AsyncToSync.Tests.AsyncToSyncConverter
 
             // act
             var firstAwaiter = converter.AwaitResult(item.CorrelationId);
-            var secondAwaiter = converter.AwaitResult(item.CorrelationId);
+            await Assert.ThrowsAsync<InvalidOperationException>(() => converter.AwaitResult(item.CorrelationId));
 
             converter.SetResult(item);
 
@@ -74,7 +74,6 @@ namespace TomTom.Useful.AsyncToSync.Tests.AsyncToSyncConverter
 
             // assert
             Assert.Equal(item, firstResult);
-            await Assert.ThrowsAsync<InvalidOperationException>(() => secondAwaiter);
         }
 
         [Fact]

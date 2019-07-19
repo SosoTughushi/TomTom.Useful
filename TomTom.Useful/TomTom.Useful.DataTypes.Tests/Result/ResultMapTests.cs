@@ -5,7 +5,7 @@ using Xunit;
 
 namespace TomTom.Useful.DataTypes.Tests.Result
 {
-    public class ResultWithReturnTypeTests
+    public class ResultMapTests
     {
         [Fact]
         public void Map_should_convert_successes()

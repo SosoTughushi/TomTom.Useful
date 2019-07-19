@@ -31,15 +31,23 @@ namespace TomTom.Useful.DataTypes.Tests.Result
         FifthError
     }
 
+    public enum ErrorTypes4
+    {
+        NotOdd,
+        Negative,
+        Dirty,
+        Unknown
+    }
+
     public class ComplexError
     {
-        public ComplexError(ErrorTypes3 errorType, string text)
+        public ComplexError(ErrorTypes4 errorType, string text)
         {
             ErrorType = errorType;
             Text = text;
         }
 
-        public ErrorTypes3 ErrorType { get; }
+        public ErrorTypes4 ErrorType { get; }
         public string Text { get; }
     }
 
