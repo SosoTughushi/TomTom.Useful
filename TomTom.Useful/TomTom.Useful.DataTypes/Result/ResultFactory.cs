@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TomTom.Useful.DataTypes
 {
-    public class ResultBuilder<TError>
+    public class ResultFactory<TError>
     {
         public Result<TError> Ok()//lift
         {

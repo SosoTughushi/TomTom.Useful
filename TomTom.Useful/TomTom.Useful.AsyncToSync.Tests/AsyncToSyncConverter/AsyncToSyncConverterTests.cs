@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace TomTom.Useful.AsyncToSync.Tests
+namespace TomTom.Useful.AsyncToSync.Tests.AsyncToSyncConverter
 {
     public class AsyncToSyncConverterTests
     {
@@ -11,7 +11,7 @@ namespace TomTom.Useful.AsyncToSync.Tests
         public async Task Should_return_data()
         {
             // arrange
-            var converter = new AsyncToSyncConverterSut(2000);
+            var converter = new Sut(2000);
             var item = new Something
             {
                 CorrelationId = Guid.NewGuid().ToString(),
@@ -36,7 +36,7 @@ namespace TomTom.Useful.AsyncToSync.Tests
                 Number = c
             }).ToList();
 
-            var converter = new AsyncToSyncConverterSut(5000);
+            var converter = new Sut(5000);
 
             // act
             var awaiters = items.Select(c => converter.AwaitResult(c.CorrelationId)).ToArray();
@@ -58,7 +58,7 @@ namespace TomTom.Useful.AsyncToSync.Tests
         public async Task Awaiting_two_times_should_result_in_InvalidOperationException()
         {
             // arrange
-            var converter = new AsyncToSyncConverterSut();
+            var converter = new Sut();
             var item = new Something
             {
                 CorrelationId = Guid.NewGuid().ToString(),
@@ -81,7 +81,7 @@ namespace TomTom.Useful.AsyncToSync.Tests
         public async Task DelayingAwait_should_result_in_timeout()
         {
             // arrange
-            var converter = new AsyncToSyncConverterSut(200);
+            var converter = new Sut(200);
             var item = new Something
             {
                 CorrelationId = Guid.NewGuid().ToString(),
@@ -100,7 +100,7 @@ namespace TomTom.Useful.AsyncToSync.Tests
         public async Task Should_timeout_when_wait_pariod_is_high()
         {
             // arrange
-            var converter = new AsyncToSyncConverterSut(500);
+            var converter = new Sut(500);
             var item = new Something
             {
                 CorrelationId = Guid.NewGuid().ToString(),

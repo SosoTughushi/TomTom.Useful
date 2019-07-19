@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{38B09567
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.AsyncToSync.Tests", "TomTom.Useful.AsyncToSync.Tests\TomTom.Useful.AsyncToSync.Tests.csproj", "{05F77ECA-E61D-4A41-81AD-0C3180C1307F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.DataTypes.Tests", "TomTom.Useful.DataTypes.Tests\TomTom.Useful.DataTypes.Tests.csproj", "{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{05F77ECA-E61D-4A41-81AD-0C3180C1307F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05F77ECA-E61D-4A41-81AD-0C3180C1307F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05F77ECA-E61D-4A41-81AD-0C3180C1307F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05F77ECA-E61D-4A41-81AD-0C3180C1307F} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}

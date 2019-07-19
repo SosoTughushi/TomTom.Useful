@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TomTom.Useful.AsyncToSync.Tests
+namespace TomTom.Useful.AsyncToSync.Tests.AsyncToSyncConverter
 {
-    public class AsyncToSyncConverterSut : AsyncToSyncConverter<string, Something>
+    public class Sut : AsyncToSyncConverter<string, Something>
     {
-        public AsyncToSyncConverterSut(int timeoutInMs = 500)
+        public Sut(int timeoutInMs = 500)
             : base(timeoutInMs, c=>c.CorrelationId)
         {
         }

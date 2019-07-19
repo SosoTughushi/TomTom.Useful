@@ -46,7 +46,7 @@ namespace TomTom.Useful.DataTypes
             return Task.FromResult(new Result<T, TError>(error));
         }
 
-        public static ResultBuilder<TError> GetBuilder<TError>() => Result<TError>.Builder;
+        public static ResultFactory<TError> GetBuilder<TError>() => Result<TError>.Builder;
 
     }
 
@@ -73,7 +73,7 @@ namespace TomTom.Useful.DataTypes
         }
 
 
-        public static ResultBuilder<TError> Builder { get; } = new ResultBuilder<TError>();
+        public static ResultFactory<TError> Builder { get; } = new ResultFactory<TError>();
 
         public static implicit operator Result(Result<TError> err)
         {
