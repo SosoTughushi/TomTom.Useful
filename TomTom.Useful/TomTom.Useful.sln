@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Mongo", "TomTom.Useful.Repositories.Mongo\TomTom.Useful.Repositories.Mongo.csproj", "{DB9D237D-3E93-4061-9B12-1BCF8473E689}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{BD8F331C-6797-49F2-914B-0CB887560EC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Redis", "TomTom.Useful.Repositories.Redis\TomTom.Useful.Repositories.Redis.csproj", "{41FD7573-6B18-436E-B614-EC5FCBA7BE13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{DB9D237D-3E93-4061-9B12-1BCF8473E689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB9D237D-3E93-4061-9B12-1BCF8473E689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB9D237D-3E93-4061-9B12-1BCF8473E689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41FD7573-6B18-436E-B614-EC5FCBA7BE13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41FD7573-6B18-436E-B614-EC5FCBA7BE13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41FD7573-6B18-436E-B614-EC5FCBA7BE13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41FD7573-6B18-436E-B614-EC5FCBA7BE13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +62,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{05F77ECA-E61D-4A41-81AD-0C3180C1307F} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 		{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{18726159-6973-4B72-85AB-A9C421D2FC30} = {BD8F331C-6797-49F2-914B-0CB887560EC5}
+		{DB9D237D-3E93-4061-9B12-1BCF8473E689} = {BD8F331C-6797-49F2-914B-0CB887560EC5}
+		{41FD7573-6B18-436E-B614-EC5FCBA7BE13} = {BD8F331C-6797-49F2-914B-0CB887560EC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}
