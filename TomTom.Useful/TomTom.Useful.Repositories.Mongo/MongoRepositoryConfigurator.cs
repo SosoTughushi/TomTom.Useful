@@ -46,7 +46,7 @@ namespace TomTom.Useful.Repositories.Mongo
         }
 
         private void RegisterRepositoryInterfaces<TRepository, TIdentity, TEntity>()
-            where TRepository : IKeyValueRepository<TIdentity, TEntity>, IPurger<TEntity>,
+            where TRepository : ICrud<TIdentity, TEntity>, IPurger<TEntity>,
             IListProvider<TEntity>,
             IPagedListProvider<TEntity>,
             IFilteredListProvider<TEntity>,
@@ -58,6 +58,7 @@ namespace TomTom.Useful.Repositories.Mongo
         {
             this.collection.AddTransient<IPurger<TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IKeyValueRepository<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<ICrud<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IWriter<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IEntityByKeyProvider<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IListProvider<TEntity>>(provider => provider.GetService<TRepository>());

@@ -75,13 +75,14 @@ namespace TomTom.Useful.Repositories.Redis
         }
 
         private void RegisterRepositoryInterfaces<TRepository, TIdentity, TEntity>()
-            where TRepository : IKeyValueRepository<TIdentity, TEntity>, IPurger<TEntity>, IListProvider<TEntity>
+            where TRepository : IPurger<TEntity>, IListProvider<TEntity>, ICrud<TIdentity,TEntity>
         {
             this.collection.AddTransient<IPurger<TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IKeyValueRepository<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IWriter<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IEntityByKeyProvider<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<ICrud<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
         }
     }
 }

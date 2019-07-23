@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.J
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Mongo.IntegrationTests", "TomTom.Useful.Repositories.Mongo.IntegrationTests\TomTom.Useful.Repositories.Mongo.IntegrationTests.csproj", "{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{980EF417-1354-43EB-AFEA-08BC95224B4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

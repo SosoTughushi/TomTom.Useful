@@ -8,9 +8,9 @@ using TomTom.Useful.Repositories.Abstractions;
 namespace TomTom.Useful.Repositories.Redis
 {
     public class RedisRepository<TEntity> :
-        IKeyValueRepository<string, TEntity>,
         IPurger<TEntity>,
-        IListProvider<TEntity>
+        IListProvider<TEntity>,
+        ICrud<string, TEntity>
         where TEntity: RedisEntity
     {
         private readonly IRedisStorage<TEntity> storage;

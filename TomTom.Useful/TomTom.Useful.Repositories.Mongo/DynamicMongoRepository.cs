@@ -10,7 +10,7 @@ using TomTom.Useful.ExpressionTreeExtensions;
 namespace TomTom.Useful.Repositories.Mongo
 {
     internal sealed class DynamicMongoRepository<TIdentity, TEntity> :
-        IKeyValueRepository<TIdentity,TEntity>,
+        ICrud<TIdentity,TEntity>,
         IPurger<TEntity>,
         IListProvider<TEntity>,
         IPagedListProvider<TEntity>,

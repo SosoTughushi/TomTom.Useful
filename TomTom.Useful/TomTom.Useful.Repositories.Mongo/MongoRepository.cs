@@ -10,7 +10,7 @@ using TomTom.Useful.Repositories.Abstractions;
 namespace TomTom.Useful.Repositories.Mongo
 {
     public class MongoRepository<TIdentity, TMongoEntity> 
-        : IKeyValueRepository<TIdentity, TMongoEntity>,
+        : ICrud<TIdentity, TMongoEntity>,
         IPurger<TMongoEntity>,
         IListProvider<TMongoEntity>,
         IPagedListProvider<TMongoEntity>,

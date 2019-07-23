@@ -8,7 +8,7 @@ using TomTom.Useful.Repositories.Abstractions;
 namespace TomTom.Useful.Repositories.Redis
 {
     public class DynamicRedisRepository<TIdentity, TEntity> :
-        IKeyValueRepository<TIdentity, TEntity>,
+        ICrud<TIdentity, TEntity>,
         IPurger<TEntity>,
         IListProvider<TEntity>
         where TEntity: class
