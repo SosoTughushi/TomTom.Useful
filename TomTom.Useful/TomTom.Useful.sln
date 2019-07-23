@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serializers", "Serializers"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.Json", "TomTom.Useful.Serializers.Json\TomTom.Useful.Serializers.Json.csproj", "{4E662F51-30CF-4B70-B231-1469325B6184}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Mongo.IntegrationTests", "TomTom.Useful.Repositories.Mongo.IntegrationTests\TomTom.Useful.Repositories.Mongo.IntegrationTests.csproj", "{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{4E662F51-30CF-4B70-B231-1469325B6184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E662F51-30CF-4B70-B231-1469325B6184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E662F51-30CF-4B70-B231-1469325B6184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{72DB6E03-563C-4A33-BFBD-40B1772251C1} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 		{7B896745-066C-4174-968A-9643C8D45A20} = {7430205E-D03F-4F95-8834-C4566C15273B}
 		{4E662F51-30CF-4B70-B231-1469325B6184} = {7430205E-D03F-4F95-8834-C4566C15273B}
+		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}

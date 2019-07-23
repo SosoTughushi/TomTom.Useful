@@ -33,7 +33,7 @@ namespace TomTom.Useful.Repositories.Mongo
                 MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>,
                 TIdentity,
                 DynamicMongoEntity<TIdentity, TEntity>>((c, p) =>
-                   new MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>(this.configurations,p.GetService<IMongoDatabase>()));
+                   new MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>(this.configurations, p.GetService<IMongoDatabase>()));
 
             this.collection.AddTransient(
                 provider => new DynamicMongoRepository<TIdentity, TEntity>(

@@ -15,7 +15,7 @@ namespace TomTom.Useful.Repositories.Mongo
 
             var mongoUrlObject = new MongoUrl(configurations.MongoUrl);
             var client = new MongoClient(mongoUrlObject);
-            var database = client.GetDatabase(mongoUrlObject.DatabaseName);
+            var database = client.GetDatabase(mongoUrlObject.DatabaseName ?? "admin");
             collection.AddSingleton(database);
 
             registrator(builder);
