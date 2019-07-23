@@ -62,11 +62,26 @@ namespace TomTom.Useful.Repositories.Mongo
             return entities;
         }
 
+
+        public async Task<IEnumerable<TMongoEntity>> GetSortedDesc(Expression<Func<TMongoEntity, object>> sortExpression)
+        {
+            var entities = await this.collection.Find(c => true).SortByDescending(sortExpression).ToListAsync();
+            return entities;
+        }
+
         public async Task<IEnumerable<TMongoEntity>> GetFilteredSorted(
             Expression<Func<TMongoEntity, bool>> filterExpression,
             Expression<Func<TMongoEntity, object>> sortExpression)
         {
             var entities = await this.collection.Find(filterExpression).SortBy(sortExpression).ToListAsync();
+
+            return entities;
+        }
+
+
+        public async Task<IEnumerable<TMongoEntity>> GetFilteredSortedDesc(Expression<Func<TMongoEntity, bool>> filterExpression, Expression<Func<TMongoEntity, object>> sortExpression)
+        {
+            var entities = await this.collection.Find(filterExpression).SortByDescending(sortExpression).ToListAsync();
 
             return entities;
         }
@@ -89,9 +104,22 @@ namespace TomTom.Useful.Repositories.Mongo
             return GetPaged(collection, skip, take);
         }
 
+        public Task<PagedResult<TMongoEntity>> GetPagedSortedDesc(Expression<Func<TMongoEntity, object>> sortExpression, int skip, int take)
+        {
+            var collection = this.collection.Find(c => true).SortByDescending(sortExpression);
+            return GetPaged(collection, skip, take);
+        }
+
         public Task<PagedResult<TMongoEntity>> GetPagedFilteredSorted(Expression<Func<TMongoEntity, bool>> filterExpression, Expression<Func<TMongoEntity, object>> sortExpression, int skip, int take)
         {
             var collection = this.collection.Find(filterExpression).SortBy(sortExpression);
+            return GetPaged(collection, skip, take);
+        }
+
+
+        public Task<PagedResult<TMongoEntity>> GetPagedFilteredSortedDesc(Expression<Func<TMongoEntity, bool>> filterExpression, Expression<Func<TMongoEntity, object>> sortExpression, int skip, int take)
+        {
+            var collection = this.collection.Find(filterExpression).SortByDescending(sortExpression);
             return GetPaged(collection, skip, take);
         }
 

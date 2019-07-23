@@ -20,6 +20,8 @@ namespace TomTom.Useful.Repositories.Abstractions
     public interface ISortedListProvider<T>
     {
         Task<IEnumerable<T>> GetSorted(Expression<Func<T, object>> sortExpression);
+
+        Task<IEnumerable<T>> GetSortedDesc(Expression<Func<T, object>> sortExpression);
     }
 
     public interface IFilteredSortedListProvider<T>
@@ -27,6 +29,10 @@ namespace TomTom.Useful.Repositories.Abstractions
         Task<IEnumerable<T>> GetFilteredSorted(
             Expression<Func<T, bool>> filterExpression,
             Expression<Func<T,object>> sortExpression);
+
+        Task<IEnumerable<T>> GetFilteredSortedDesc(
+            Expression<Func<T, bool>> filterExpression,
+            Expression<Func<T, object>> sortExpression);
     }
 
     public interface IPagedListProvider<T>
@@ -44,11 +50,20 @@ namespace TomTom.Useful.Repositories.Abstractions
     {
         Task<PagedResult<T>> GetPagedSorted(
             Expression<Func<T, object>> sortExpression, int skip, int take);
+
+        Task<PagedResult<T>> GetPagedSortedDesc(
+            Expression<Func<T, object>> sortExpression, int skip, int take);
     }
 
     public interface IPagedFilteredSortedListProvider<T>
     {
         Task<PagedResult<T>> GetPagedFilteredSorted(
+            Expression<Func<T, bool>> filterExpression,
+            Expression<Func<T, object>> sortExpression,
+            int skip, int take);
+
+
+        Task<PagedResult<T>> GetPagedFilteredSortedDesc(
             Expression<Func<T, bool>> filterExpression,
             Expression<Func<T, object>> sortExpression,
             int skip, int take);

@@ -64,6 +64,13 @@ namespace TomTom.Useful.Repositories.Mongo
             return entities.Select(c => c.Data);
         }
 
+        public async Task<IEnumerable<TEntity>> GetFilteredSortedDesc(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, object>> sortExpression)
+        {
+            var entities = await this.repository.GetFilteredSortedDesc(Extend(filterExpression), Extend(sortExpression));
+
+            return entities.Select(c => c.Data);
+        }
+
         public async Task<PagedResult<TEntity>> GetPaged(int skip, int take)
         {
             var result = await this.repository.GetPaged(skip, take);
@@ -85,6 +92,13 @@ namespace TomTom.Useful.Repositories.Mongo
             return result.Convert(c => c.Data);
         }
 
+        public async Task<PagedResult<TEntity>> GetPagedFilteredSortedDesc(Expression<Func<TEntity, bool>> filterExpression, Expression<Func<TEntity, object>> sortExpression, int skip, int take)
+        {
+            var result = await this.repository.GetPagedFilteredSortedDesc(Extend(filterExpression), Extend(sortExpression), skip, take);
+
+            return result.Convert(c => c.Data);
+        }
+
         public async Task<PagedResult<TEntity>> GetPagedSorted(Expression<Func<TEntity, object>> sortExpression, int skip, int take)
         {
             var result = await this.repository.GetPagedSorted(Extend(sortExpression), skip, take);
@@ -92,9 +106,24 @@ namespace TomTom.Useful.Repositories.Mongo
             return result.Convert(c => c.Data);
         }
 
+        public async Task<PagedResult<TEntity>> GetPagedSortedDesc(Expression<Func<TEntity, object>> sortExpression, int skip, int take)
+        {
+            var result = await this.repository.GetPagedSortedDesc(Extend(sortExpression), skip, take);
+
+            return result.Convert(c => c.Data);
+        }
+
         public async Task<IEnumerable<TEntity>> GetSorted(Expression<Func<TEntity, object>> sortExpression)
         {
             var sorted = await this.repository.GetSorted(Extend(sortExpression));
+
+            return sorted.Select(c => c.Data);
+        }
+
+
+        public async Task<IEnumerable<TEntity>> GetSortedDesc(Expression<Func<TEntity, object>> sortExpression)
+        {
+            var sorted = await this.repository.GetSortedDesc(Extend(sortExpression));
 
             return sorted.Select(c => c.Data);
         }
