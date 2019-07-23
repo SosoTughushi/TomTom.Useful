@@ -34,8 +34,8 @@ namespace TomTom.Useful.DataTypes.Tests.Result
             var newResult = successResult.Bind((c, f) => f.Fail<int>(ErrorTypes1.SecondError));
 
             // assert
-            Assert.False(successResult);
-            Assert.Equal(ErrorTypes1.SecondError, successResult.Error);
+            Assert.False(newResult);
+            Assert.Equal(ErrorTypes1.SecondError, newResult.Error);
         }
 
         [Fact]

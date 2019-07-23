@@ -7,7 +7,10 @@ using TomTom.Useful.Repositories.Abstractions;
 
 namespace TomTom.Useful.Repositories.Redis
 {
-    public class RedisRepository<TEntity> : IKeyValueRepository<string, TEntity>, IPurger<TEntity>
+    public class RedisRepository<TEntity> :
+        IKeyValueRepository<string, TEntity>,
+        IPurger<TEntity>,
+        IListProvider<TEntity>
         where TEntity: RedisEntity
     {
         private readonly IRedisStorage<TEntity> storage;
@@ -28,6 +31,11 @@ namespace TomTom.Useful.Repositories.Redis
         public Task<TEntity> Get(string identity)
         {
             return this.storage.Get(identity);
+        }
+
+        public Task<IEnumerable<TEntity>> GetAll()
+        {
+            return this.storage.GetAll();
         }
 
         public async Task<Result<object>> Insert(TEntity entity)

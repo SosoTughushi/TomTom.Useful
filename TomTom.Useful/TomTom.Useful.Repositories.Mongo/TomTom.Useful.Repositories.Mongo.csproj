@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TomTom.Useful.ExpressionTreeExtensions\TomTom.Useful.ExpressionTreeExtensions.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj" />
   </ItemGroup>
 

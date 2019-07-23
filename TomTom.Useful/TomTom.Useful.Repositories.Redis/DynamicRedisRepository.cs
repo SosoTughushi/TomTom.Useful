@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TomTom.Useful.DataTypes;
 using TomTom.Useful.Repositories.Abstractions;
 
 namespace TomTom.Useful.Repositories.Redis
 {
-    public class DynamicRedisRepository<TIdentity, TEntity> : IKeyValueRepository<TIdentity, TEntity>, IPurger<TEntity>
+    public class DynamicRedisRepository<TIdentity, TEntity> :
+        IKeyValueRepository<TIdentity, TEntity>,
+        IPurger<TEntity>,
+        IListProvider<TEntity>
         where TEntity: class
     {
         private readonly RedisRepository<DynamicRedisEntity<TEntity>> redisRepository;
@@ -31,6 +36,13 @@ namespace TomTom.Useful.Repositories.Redis
         {
             var entity = await this.redisRepository.Get(identityToString(identity));
             return entity?.Data;
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAll()
+        {
+            var entities = await this.redisRepository.GetAll();
+
+            return entities.Select(c => c.Data);
         }
 
         public Task<Result<object>> Insert(TEntity entity)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using System;
 using TomTom.Useful.Repositories.Abstractions;
 
@@ -32,7 +33,7 @@ namespace TomTom.Useful.Repositories.Mongo
                 MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>,
                 TIdentity,
                 DynamicMongoEntity<TIdentity, TEntity>>((c, p) =>
-                   new MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>(this.configurations));
+                   new MongoRepository<TIdentity, DynamicMongoEntity<TIdentity, TEntity>>(this.configurations,p.GetService<IMongoDatabase>()));
 
             this.collection.AddTransient(
                 provider => new DynamicMongoRepository<TIdentity, TEntity>(
@@ -45,12 +46,27 @@ namespace TomTom.Useful.Repositories.Mongo
         }
 
         private void RegisterRepositoryInterfaces<TRepository, TIdentity, TEntity>()
-            where TRepository : IKeyValueRepository<TIdentity, TEntity>, IPurger<TEntity>
+            where TRepository : IKeyValueRepository<TIdentity, TEntity>, IPurger<TEntity>,
+            IListProvider<TEntity>,
+            IPagedListProvider<TEntity>,
+            IFilteredListProvider<TEntity>,
+            IPagedFilteredListProvider<TEntity>,
+            ISortedListProvider<TEntity>,
+            IPagedSortedListProvider<TEntity>,
+            IFilteredSortedListProvider<TEntity>,
+            IPagedFilteredSortedListProvider<TEntity>
         {
             this.collection.AddTransient<IPurger<TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IKeyValueRepository<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IWriter<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
             this.collection.AddTransient<IEntityByKeyProvider<TIdentity, TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IPagedListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IFilteredListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IPagedFilteredListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<ISortedListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IFilteredSortedListProvider<TEntity>>(provider => provider.GetService<TRepository>());
+            this.collection.AddTransient<IPagedFilteredSortedListProvider<TEntity>>(provider => provider.GetService<TRepository>());
         }
     }
 }

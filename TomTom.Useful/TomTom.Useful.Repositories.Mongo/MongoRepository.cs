@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TomTom.Useful.DataTypes;
@@ -9,8 +10,16 @@ using TomTom.Useful.Repositories.Abstractions;
 namespace TomTom.Useful.Repositories.Mongo
 {
     public class MongoRepository<TIdentity, TMongoEntity> 
-        : IKeyValueRepository<TIdentity, TMongoEntity>
-        , IPurger<TMongoEntity>
+        : IKeyValueRepository<TIdentity, TMongoEntity>,
+        IPurger<TMongoEntity>,
+        IListProvider<TMongoEntity>,
+        IPagedListProvider<TMongoEntity>,
+        IFilteredListProvider<TMongoEntity>,
+        IPagedFilteredListProvider<TMongoEntity>,
+        ISortedListProvider<TMongoEntity>,
+        IPagedSortedListProvider<TMongoEntity>,
+        IFilteredSortedListProvider<TMongoEntity>,
+        IPagedFilteredSortedListProvider<TMongoEntity>
         where TMongoEntity : MongoEntity<TIdentity>
     {
         private static readonly FindOneAndReplaceOptions<TMongoEntity> UpdateOptions
@@ -20,12 +29,10 @@ namespace TomTom.Useful.Repositories.Mongo
         protected readonly IMongoCollection<TMongoEntity> collection;
         protected readonly ResultFactory<object> resultFactory = Result.GetFactory<object>();
 
-        public MongoRepository(MongoConifgurations conifgurations)
+        public MongoRepository(MongoConifgurations conifgurations, IMongoDatabase database)
         {
             // TODO: Add guard clauses for mongoUrl and schema (not null or empty)
-            var mongoUrlObject = new MongoUrl(conifgurations.MongoUrl);
-            var client = new MongoClient(mongoUrlObject);
-            this.database = client.GetDatabase(mongoUrlObject.DatabaseName);
+            this.database = database;
             this.collection = this.database.GetCollection<TMongoEntity>(string.Join(".", conifgurations.Schema, typeof(TMongoEntity).Name));
         }
 
@@ -34,6 +41,58 @@ namespace TomTom.Useful.Repositories.Mongo
             var filter = Builders<TMongoEntity>.Filter.Eq(x => x.BsonId, identity);
             var document = await this.collection.Find(filter).FirstOrDefaultAsync();
             return document;
+        }
+
+        public async Task<IEnumerable<TMongoEntity>> GetAll()
+        {
+            var entities = await this.collection.Find(c => true).ToListAsync();
+
+            return entities;
+        }
+
+        public async Task<IEnumerable<TMongoEntity>> GetFiltered(Expression<Func<TMongoEntity, bool>> filterExpression)
+        {
+            var entities = await this.collection.Find(filterExpression).ToListAsync();
+            return entities;
+        }
+
+        public async Task<IEnumerable<TMongoEntity>> GetSorted(Expression<Func<TMongoEntity, object>> sortExpression)
+        {
+            var entities = await this.collection.Find(c => true).SortBy(sortExpression).ToListAsync();
+            return entities;
+        }
+
+        public async Task<IEnumerable<TMongoEntity>> GetFilteredSorted(
+            Expression<Func<TMongoEntity, bool>> filterExpression,
+            Expression<Func<TMongoEntity, object>> sortExpression)
+        {
+            var entities = await this.collection.Find(filterExpression).SortBy(sortExpression).ToListAsync();
+
+            return entities;
+        }
+
+        public Task<PagedResult<TMongoEntity>> GetPaged(int skip, int take)
+        {
+            var collection = this.collection.Find(c => true);
+            return GetPaged(collection, skip, take);
+        }
+
+        public Task<PagedResult<TMongoEntity>> GetPagedFiltered(Expression<Func<TMongoEntity, bool>> filterExpression, int skip, int take)
+        {
+            var collection = this.collection.Find(filterExpression);
+            return GetPaged(collection, skip, take);
+        }
+
+        public Task<PagedResult<TMongoEntity>> GetPagedSorted(Expression<Func<TMongoEntity, object>> sortExpression, int skip, int take)
+        {
+            var collection = this.collection.Find(c => true).SortBy(sortExpression);
+            return GetPaged(collection, skip, take);
+        }
+
+        public Task<PagedResult<TMongoEntity>> GetPagedFilteredSorted(Expression<Func<TMongoEntity, bool>> filterExpression, Expression<Func<TMongoEntity, object>> sortExpression, int skip, int take)
+        {
+            var collection = this.collection.Find(filterExpression).SortBy(sortExpression);
+            return GetPaged(collection, skip, take);
         }
 
         public async Task<Result<object>> Insert(TMongoEntity entity)
@@ -72,6 +131,14 @@ namespace TomTom.Useful.Repositories.Mongo
             await this.database.CreateCollectionAsync(name);
 
             return resultFactory.Ok();
+        }
+
+        private static async Task<PagedResult<TMongoEntity>> GetPaged(IFindFluent<TMongoEntity, TMongoEntity> collection, int skip, int take)
+        {
+            var total = await collection.CountDocumentsAsync();
+            var entities = await collection.Skip(skip).Limit(take).ToListAsync();
+
+            return new PagedResult<TMongoEntity>(entities, skip, (int)total);
         }
     }
 }
