@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
-using TomTom.Useful.DataTypes.Serialization;
 using TomTom.Useful.Repositories.Abstractions;
+using TomTom.Useful.Serializers.Abstractions;
 
 namespace TomTom.Useful.Repositories.Redis
 {

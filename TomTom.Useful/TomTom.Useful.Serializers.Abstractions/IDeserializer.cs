@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TomTom.Useful.DataTypes.Serialization
+namespace TomTom.Useful.Serializers.Abstractions
 {
     public interface IDeserializer<T>
     {

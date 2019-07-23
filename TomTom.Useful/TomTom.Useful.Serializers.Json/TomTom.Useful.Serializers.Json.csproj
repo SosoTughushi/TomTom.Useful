@@ -6,11 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Serializers.Abstractions\TomTom.Useful.Serializers.Abstractions.csproj" />
   </ItemGroup>
 

@@ -27,6 +27,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.ExpressionTre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.ExpressionTreeExtensions.Tests", "TomTom.Useful.ExpressionTreeExtensions.Tests\TomTom.Useful.ExpressionTreeExtensions.Tests.csproj", "{2430FAD6-556B-4E52-8602-C577177AB209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Redis.IntegrationTests", "TomTom.Useful.Repositories.Redis.IntegrationTests\TomTom.Useful.Repositories.Redis.IntegrationTests.csproj", "{72DB6E03-563C-4A33-BFBD-40B1772251C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.Abstractions", "TomTom.Useful.Serializers.Abstractions\TomTom.Useful.Serializers.Abstractions.csproj", "{7B896745-066C-4174-968A-9643C8D45A20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serializers", "Serializers", "{7430205E-D03F-4F95-8834-C4566C15273B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.Json", "TomTom.Useful.Serializers.Json\TomTom.Useful.Serializers.Json.csproj", "{4E662F51-30CF-4B70-B231-1469325B6184}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +77,18 @@ Global
 		{2430FAD6-556B-4E52-8602-C577177AB209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2430FAD6-556B-4E52-8602-C577177AB209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2430FAD6-556B-4E52-8602-C577177AB209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DB6E03-563C-4A33-BFBD-40B1772251C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DB6E03-563C-4A33-BFBD-40B1772251C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DB6E03-563C-4A33-BFBD-40B1772251C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DB6E03-563C-4A33-BFBD-40B1772251C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B896745-066C-4174-968A-9643C8D45A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B896745-066C-4174-968A-9643C8D45A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B896745-066C-4174-968A-9643C8D45A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B896745-066C-4174-968A-9643C8D45A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E662F51-30CF-4B70-B231-1469325B6184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E662F51-30CF-4B70-B231-1469325B6184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E662F51-30CF-4B70-B231-1469325B6184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E662F51-30CF-4B70-B231-1469325B6184}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +103,9 @@ Global
 		{41FD7573-6B18-436E-B614-EC5FCBA7BE13} = {BD8F331C-6797-49F2-914B-0CB887560EC5}
 		{DDC1CB52-267A-4582-B358-1E636C7A7BDB} = {6FF68BC5-3A92-45B9-A5D7-FD0B396EF9A1}
 		{2430FAD6-556B-4E52-8602-C577177AB209} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{72DB6E03-563C-4A33-BFBD-40B1772251C1} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{7B896745-066C-4174-968A-9643C8D45A20} = {7430205E-D03F-4F95-8834-C4566C15273B}
+		{4E662F51-30CF-4B70-B231-1469325B6184} = {7430205E-D03F-4F95-8834-C4566C15273B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}
