@@ -80,30 +80,30 @@ namespace TomTom.Useful.DataTypes.Tests.Result
 
             Result<int, ErrorTypes4> isOdd(int number)
             {
-                if(number %2 == 0)
+                if (number % 2 == 0)
                 {
                     return factory.Ok(number);
                 }
-                return factory.Fail(ErrorTypes4.NotOdd);
+                return new Result<int, ErrorTypes4>(ErrorTypes4.NotOdd);
             }
 
             Result<int, ErrorTypes4> isPositive(int number)
             {
-                if(number > 0)
+                if (number > 0)
                 {
                     return factory.Ok(number);
                 }
 
-                return factory.Fail(ErrorTypes4.Negative);
+                return new Result<int, ErrorTypes4>(ErrorTypes4.Negative);
             }
 
             Result<int, ErrorTypes4> isDirty(int number)
             {
-                if(number != 69)
+                if (number != 69)
                 {
                     return factory.Ok(number);
                 }
-                return factory.Fail(ErrorTypes4.Dirty);
+                return new Result<int, ErrorTypes4>(ErrorTypes4.Dirty);
             }
 
             getNumberFromDb()

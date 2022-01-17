@@ -6,9 +6,9 @@ namespace TomTom.Useful.DataTypes
     //You can see idea behind these classes here:
     //http://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/
 
-    public struct Result
+    public class Result
     {
-        public bool Success;
+        public bool Success { get; }
         public Result(bool success)
         {
             Success = success;
@@ -50,85 +50,52 @@ namespace TomTom.Useful.DataTypes
 
     }
 
-    public class Result<TError>
+    public class Result<TError> : Result
     {
-        public bool Success;
-        public TError Error;
+        public TError? Error { get; protected set; }
 
         /// <summary>
         /// success
         /// </summary>
-        public Result()
+        public Result() : base(true)
         {
-            Success = true;
         }
 
         /// <summary>
         /// fail
         /// </summary>
-        public Result(TError error)
+        public Result(TError error) : base(false)
         {
             Error = error;
-            Success = false;
         }
 
 
         public static ResultFactory<TError> Factory { get; } = new ResultFactory<TError>();
 
-        public static implicit operator Result(Result<TError> err)
-        {
-            return new Result(err.Success);
-        }
-
         public static implicit operator bool(Result<TError> err) => err.Success;
     }
 
 
-    public class Result<T, TError>
+    public class Result<T, TError> : Result<TError>
     {
-        public TError Error;
-        public bool Success;
-        public T Value;
+        public T? Value { get; }
         /// <summary>
         /// success
         /// </summary>
-        public Result(T value)
+        public Result(T value) : base()
         {
             Value = value;
-            Success = true;
-            Error = default(TError);
         }
 
         /// <summary>
         /// fail
         /// </summary>
-        public Result(TError error)
+        public Result(TError error) : base(error)
         {
             Error = error;
             Value = default(T);
-            Success = false;
         }
 
-
-        public static implicit operator Result<TError>(Result<T, TError> err)
-        {
-            if (err.Success)
-            {
-                return new Result<TError>();
-            }
-            return new Result<TError>(err.Error);
-        }
-
-        public static implicit operator Result<T, TError>(Result<TError> err)
-        {
-            if (err.Success)
-            {
-                return new Result<T, TError>(default(T));
-            }
-
-            return new Result<T, TError>(err.Error);
-
-        }
         public static implicit operator bool(Result<T, TError> err) => err.Success;
     }
 }

@@ -120,7 +120,7 @@ namespace TomTom.Useful.DataTypes
 
             if (!result.Success)
             {
-                return Result<TNewError>.Factory.Fail(errorConverter(result.Error));
+                return new Result<T,TNewError>(errorConverter(result.Error));
             }
 
             return Result<TNewError>.Factory.Ok(result.Value);

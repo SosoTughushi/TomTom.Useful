@@ -18,6 +18,10 @@ namespace TomTom.Useful.DataTypes
         {
             return new Result<TError>(error);
         }
+        public Result<T, TError> Fail<T>(TError error)//lift
+        {
+            return new Result<T, TError>(error);
+        }
 
         public Task<Result<TError>> FailAsync(TError error) => Task.FromResult(Fail(error));
 
@@ -26,11 +30,6 @@ namespace TomTom.Useful.DataTypes
             return new Result<T, TError>(value);
         }
         public Task<Result<T, TError>> OkAsync<T>(T value) => Task.FromResult(Ok(value));
-
-        public Result<T, TError> Fail<T>(TError error)//lift
-        {
-            return new Result<T, TError>(error);
-        }
 
         public Task<Result<T, TError>> FailAsync<T>(TError error) => Task.FromResult(Fail<T>(error));
     }
