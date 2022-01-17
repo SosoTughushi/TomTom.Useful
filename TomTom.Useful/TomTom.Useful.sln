@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32104.313
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.AsyncToSync", "TomTom.Useful.AsyncToSync\TomTom.Useful.AsyncToSync.csproj", "{0EB92898-B792-4EAD-B9B5-E399D284D735}"
 EndProject
@@ -13,31 +13,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.AsyncToSync.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.DataTypes.Tests", "TomTom.Useful.DataTypes.Tests\TomTom.Useful.DataTypes.Tests.csproj", "{6BE6E0BA-9678-40E0-81F7-9ADCFC5C390F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Abstractions", "TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj", "{18726159-6973-4B72-85AB-A9C421D2FC30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Abstractions", "TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj", "{18726159-6973-4B72-85AB-A9C421D2FC30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Mongo", "TomTom.Useful.Repositories.Mongo\TomTom.Useful.Repositories.Mongo.csproj", "{DB9D237D-3E93-4061-9B12-1BCF8473E689}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Mongo", "TomTom.Useful.Repositories.Mongo\TomTom.Useful.Repositories.Mongo.csproj", "{DB9D237D-3E93-4061-9B12-1BCF8473E689}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{BD8F331C-6797-49F2-914B-0CB887560EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Redis", "TomTom.Useful.Repositories.Redis\TomTom.Useful.Repositories.Redis.csproj", "{41FD7573-6B18-436E-B614-EC5FCBA7BE13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Redis", "TomTom.Useful.Repositories.Redis\TomTom.Useful.Repositories.Redis.csproj", "{41FD7573-6B18-436E-B614-EC5FCBA7BE13}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6FF68BC5-3A92-45B9-A5D7-FD0B396EF9A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.ExpressionTreeExtensions", "TomTom.Useful.ExpressionTreeExtensions\TomTom.Useful.ExpressionTreeExtensions.csproj", "{DDC1CB52-267A-4582-B358-1E636C7A7BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.ExpressionTreeExtensions", "TomTom.Useful.ExpressionTreeExtensions\TomTom.Useful.ExpressionTreeExtensions.csproj", "{DDC1CB52-267A-4582-B358-1E636C7A7BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.ExpressionTreeExtensions.Tests", "TomTom.Useful.ExpressionTreeExtensions.Tests\TomTom.Useful.ExpressionTreeExtensions.Tests.csproj", "{2430FAD6-556B-4E52-8602-C577177AB209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.ExpressionTreeExtensions.Tests", "TomTom.Useful.ExpressionTreeExtensions.Tests\TomTom.Useful.ExpressionTreeExtensions.Tests.csproj", "{2430FAD6-556B-4E52-8602-C577177AB209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Redis.IntegrationTests", "TomTom.Useful.Repositories.Redis.IntegrationTests\TomTom.Useful.Repositories.Redis.IntegrationTests.csproj", "{72DB6E03-563C-4A33-BFBD-40B1772251C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Redis.IntegrationTests", "TomTom.Useful.Repositories.Redis.IntegrationTests\TomTom.Useful.Repositories.Redis.IntegrationTests.csproj", "{72DB6E03-563C-4A33-BFBD-40B1772251C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.Abstractions", "TomTom.Useful.Serializers.Abstractions\TomTom.Useful.Serializers.Abstractions.csproj", "{7B896745-066C-4174-968A-9643C8D45A20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Serializers.Abstractions", "TomTom.Useful.Serializers.Abstractions\TomTom.Useful.Serializers.Abstractions.csproj", "{7B896745-066C-4174-968A-9643C8D45A20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serializers", "Serializers", "{7430205E-D03F-4F95-8834-C4566C15273B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Serializers.Json", "TomTom.Useful.Serializers.Json\TomTom.Useful.Serializers.Json.csproj", "{4E662F51-30CF-4B70-B231-1469325B6184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Serializers.Json", "TomTom.Useful.Serializers.Json\TomTom.Useful.Serializers.Json.csproj", "{4E662F51-30CF-4B70-B231-1469325B6184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Repositories.Mongo.IntegrationTests", "TomTom.Useful.Repositories.Mongo.IntegrationTests\TomTom.Useful.Repositories.Mongo.IntegrationTests.csproj", "{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Mongo.IntegrationTests", "TomTom.Useful.Repositories.Mongo.IntegrationTests\TomTom.Useful.Repositories.Mongo.IntegrationTests.csproj", "{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{980EF417-1354-43EB-AFEA-08BC95224B4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Messaging.Abstractions", "TomTom.Messaging.Abstractions\TomTom.Messaging.Abstractions.csproj", "{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{7B896745-066C-4174-968A-9643C8D45A20} = {7430205E-D03F-4F95-8834-C4566C15273B}
 		{4E662F51-30CF-4B70-B231-1469325B6184} = {7430205E-D03F-4F95-8834-C4566C15273B}
 		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}
