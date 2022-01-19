@@ -14,7 +14,7 @@ namespace TomTom.Useful.Messaging
     public interface ICurrentMessageContext
     {
         Task Ack();
-        Task Nack(object butWhy);
+        Task Nack(object butWhy); // TODO: retry or permanently
     }
 
     public static class SubscriberExtensions

@@ -18,10 +18,15 @@ namespace TomTom.Useful.Serializers.Json
             return (T)JsonConvert.DeserializeObject(str, childType);
         }
 
-        public byte[] Serialize(T data)
+        public string SerializeToString(T data)
         {
             var str = JsonConvert.SerializeObject(data);
+            return str;
+        }
 
+        public byte[] Serialize(T data)
+        {
+            var str = SerializeToString(data);
             return System.Text.Encoding.UTF8.GetBytes(str);
         }
 
