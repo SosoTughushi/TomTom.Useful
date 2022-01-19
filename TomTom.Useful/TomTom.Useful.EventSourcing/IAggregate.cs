@@ -12,6 +12,7 @@ namespace TomTom.Useful.EventSourcing
     }
     public interface IAggregate<TIdentity> : IAggregate
     {
+        TIdentity Id { get; }
     }
 
     public static class AggregateExtensions

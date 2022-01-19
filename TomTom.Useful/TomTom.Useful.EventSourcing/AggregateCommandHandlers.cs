@@ -80,7 +80,12 @@ namespace TomTom.Useful.EventSourcing
                 await subscription.DisposeAsync();
             }
         }
-        protected virtual Task HandleValidationError(TValidationError error, ICommand<TAggregateIdentity> command, TAggregate? aggregate = default(TAggregate))
+        protected virtual Task OnValidationError(TValidationError error, ICommand<TAggregateIdentity> command, TAggregate? aggregate = default(TAggregate))
+        {
+            return Task.CompletedTask;
+        }
+
+        protected virtual Task OnSuccessfullHandle(ICommand<TAggregateIdentity> command, TAggregate aggregate)
         {
             return Task.CompletedTask;
         }
@@ -99,7 +104,7 @@ namespace TomTom.Useful.EventSourcing
                 else
                 {
                     await context.Nack(createdResult.Error);
-                    await HandleValidationError(createdResult.Error, command);
+                    await OnValidationError(createdResult.Error, command);
                 }
 
                 return;
@@ -123,16 +128,12 @@ namespace TomTom.Useful.EventSourcing
             else
             {
                 await context.Nack(modifyResult.Error);
-                await HandleValidationError(modifyResult.Error, command, aggregate);
+                await OnSuccessfullHandle(modifyResult.Error, command, aggregate);
             }
         }
 
+        #region Result Classes
 
-    }
-
-    public partial class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TValidationError>
-        where TAggregate : IAggregate<TAggregateIdentity>
-    {
         public class CreateAggregateCommandHandlerResult :
             Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TValidationError>
         {
@@ -156,5 +157,6 @@ namespace TomTom.Useful.EventSourcing
             }
         }
 
+        #endregion
     }
 }
