@@ -37,11 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Serializers.J
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Repositories.Mongo.IntegrationTests", "TomTom.Useful.Repositories.Mongo.IntegrationTests\TomTom.Useful.Repositories.Mongo.IntegrationTests.csproj", "{C4F7FAFE-7206-413C-A7E2-001DFA7B5336}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{980EF417-1354-43EB-AFEA-08BC95224B4F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DDDCQRSES", "DDDCQRSES", "{980EF417-1354-43EB-AFEA-08BC95224B4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Messaging", "TomTom.Messaging.Abstractions\TomTom.Useful.Messaging.csproj", "{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Messaging", "TomTom.Messaging.Abstractions\TomTom.Useful.Messaging.csproj", "{CE7E95A6-B82B-44AA-81E4-3DB723C18B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.CQRS", "TomTom.Useful.CQRS\TomTom.Useful.CQRS.csproj", "{54747C7A-6342-416D-BC97-40D7F6A39D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.CQRS", "TomTom.Useful.CQRS\TomTom.Useful.CQRS.csproj", "{54747C7A-6342-416D-BC97-40D7F6A39D46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.EventSourcing", "TomTom.Useful.EventSourcing\TomTom.Useful.EventSourcing.csproj", "{6107A0E6-DCCE-49B4-B59E-DADD49520260}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,10 @@ Global
 		{54747C7A-6342-416D-BC97-40D7F6A39D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54747C7A-6342-416D-BC97-40D7F6A39D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54747C7A-6342-416D-BC97-40D7F6A39D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6107A0E6-DCCE-49B4-B59E-DADD49520260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6107A0E6-DCCE-49B4-B59E-DADD49520260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6107A0E6-DCCE-49B4-B59E-DADD49520260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6107A0E6-DCCE-49B4-B59E-DADD49520260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +135,7 @@ Global
 		{C4F7FAFE-7206-413C-A7E2-001DFA7B5336} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 		{CE7E95A6-B82B-44AA-81E4-3DB723C18B83} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 		{54747C7A-6342-416D-BC97-40D7F6A39D46} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
+		{6107A0E6-DCCE-49B4-B59E-DADD49520260} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}

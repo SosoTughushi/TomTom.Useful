@@ -11,4 +11,9 @@ namespace TomTom.Useful.CQRS
     {
     }
 
+    public interface ICommand<TTargetIdentity> : ICommand
+    {
+        TTargetIdentity TargetIdentity { get; }
+    }
+
 }

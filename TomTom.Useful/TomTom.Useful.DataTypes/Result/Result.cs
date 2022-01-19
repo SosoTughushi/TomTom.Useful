@@ -52,7 +52,7 @@ namespace TomTom.Useful.DataTypes
 
     public class Result<TError> : Result
     {
-        public TError? Error { get; protected set; }
+        public TError Error { get; protected set; }
 
         /// <summary>
         /// success
@@ -78,7 +78,7 @@ namespace TomTom.Useful.DataTypes
 
     public class Result<T, TError> : Result<TError>
     {
-        public T? Value { get; }
+        public T Value { get; }
         /// <summary>
         /// success
         /// </summary>
