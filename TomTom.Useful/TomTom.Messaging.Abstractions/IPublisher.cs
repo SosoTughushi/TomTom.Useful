@@ -9,5 +9,9 @@ namespace TomTom.Useful.Messaging
     public interface IPublisher<T> where T: IMessage
     {
         Task Publish(T message);
+
+        Task Publish(IEnumerable<T> messages);
     }
+
+
 }
