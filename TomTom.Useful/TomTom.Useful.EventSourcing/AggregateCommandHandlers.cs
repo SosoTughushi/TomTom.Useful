@@ -34,7 +34,7 @@ namespace TomTom.Useful.EventSourcing
 
             modifyHandler = (command, _) =>
             {
-                throw new InvalidOperationException($"No handler registered for {command.GetType().AssemblyQualifiedName} command type.");
+                throw new InvalidOperationException($"No handler registered for {command.GetType().FullName} command type.");
             };
             createHandler = command => null;
         }
