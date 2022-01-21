@@ -4,11 +4,11 @@ using TomTom.Useful.Demo.Domain.Identities;
 
 namespace TomTom.Useful.Demo.Application
 {
-    public class PlaylistService : IPlaylistWriter
+    public class PlaylistWriter : IPlaylistWriter
     {
         private readonly ICommandPublisher<ICommand<PlaylistIdentity>> publisher;
 
-        public PlaylistService(ICommandPublisher<ICommand<PlaylistIdentity>> publisher)
+        public PlaylistWriter(ICommandPublisher<ICommand<PlaylistIdentity>> publisher)
         {
             this.publisher = publisher;
         }

@@ -11,6 +11,7 @@ namespace TomTom.Useful.Serializers.Json
         public static void AddJsonSerialization(this IServiceCollection services)
         {
             services.AddSingleton(typeof(ISerializer<>), typeof(JsonSerializer<>));
+            services.AddSingleton(typeof(JsonSerializer<>));
             services.AddSingleton(typeof(IDeserializer<>), typeof(JsonSerializer<>));
         }
     }
