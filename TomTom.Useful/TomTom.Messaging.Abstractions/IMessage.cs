@@ -2,8 +2,9 @@
 {
     public interface IMessage 
     {
-        public Guid? Id { get; }
-        public Guid CorrelationId { get;  }
-        public Guid? CausationId { get; }
+        public Guid Id { get; }
+        public string CorrelationId { get;  }
+
+        public string CausedById { get; }
     }
 }

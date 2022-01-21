@@ -19,8 +19,8 @@ namespace TomTom.Useful.EventSourcing
         private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate> aggregateRepository;
         private readonly IEventPublisher publisher;
 
-        private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult> modifyHandler;
-        private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult?> createHandler;
+        private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> modifyHandler;
+        private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>?> createHandler;
         private IAsyncDisposable? subscription;
 
         public AggregateCommandHandlers(
@@ -38,7 +38,7 @@ namespace TomTom.Useful.EventSourcing
             };
             createHandler = command => null;
         }
-        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult> handler)
+        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>> handler)
             where TCommand : ICommand<TAggregateIdentity>
         {
             if (createHandler == null)
@@ -55,7 +55,7 @@ namespace TomTom.Useful.EventSourcing
             }
         }
 
-        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult> handler)
+        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> handler)
         {
             var prev = modifyHandler;
 
@@ -128,35 +128,49 @@ namespace TomTom.Useful.EventSourcing
             else
             {
                 await context.Nack(modifyResult.Error);
-                await OnSuccessfullHandle(modifyResult.Error, command, aggregate);
+                await OnSuccessfullHandle(command, aggregate);
             }
         }
 
-        #region Result Classes
+        
+    }
 
-        public class CreateAggregateCommandHandlerResult :
-            Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TValidationError>
+    #region Result Classes
+
+    public class CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError> :
+        Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TValidationError>
+    {
+        public CreateAggregateCommandHandlerResult(TValidationError error) : base(error)
         {
-            public CreateAggregateCommandHandlerResult(TValidationError error) : base(error)
-            {
-            }
-
-            public CreateAggregateCommandHandlerResult(TAggregate aggregate, IEnumerable<Event<TAggregateIdentity>> events) : base((aggregate, events))
-            {
-            }
         }
 
-        public class AggregateCommandHandlerResult : Result<IEnumerable<Event<TAggregate>>, TValidationError>
+        public CreateAggregateCommandHandlerResult(TAggregate aggregate, IEnumerable<Event<TAggregateIdentity>> events) : base((aggregate, events))
         {
-            public AggregateCommandHandlerResult(IEnumerable<Event<TAggregate>> value) : base(value)
-            {
-            }
+        }
+    }
 
-            public AggregateCommandHandlerResult(TValidationError error) : base(error)
-            {
-            }
+    public class AggregateCommandHandlerResult<TAggregateIdentity, TValidationError> : Result<IEnumerable<Event<TAggregateIdentity>>, TValidationError>
+    {
+        public AggregateCommandHandlerResult(IEnumerable<Event<TAggregateIdentity>> value) : base(value)
+        {
         }
 
-        #endregion
+        public AggregateCommandHandlerResult(TValidationError error) : base(error)
+        {
+        }
+    }
+
+    #endregion
+
+    public interface ICreateAggregateCommandHandler<TAggregateIdentity, TAggregate, TCommand, TError>
+        where TCommand : ICreateCommand<TAggregateIdentity>
+        where TAggregate : IAggregate<TAggregateIdentity>
+    {
+        CreateAggregateCommandHandlerResult< TAggregateIdentity, TAggregate, TError> Handle(TCommand command);
+    }
+
+    public interface IAggregateCommandHandler<TAggregateIdentity, TCommand, TAggregate, TError>
+    {
+        AggregateCommandHandlerResult<TAggregateIdentity, TError> Handle(TCommand command, TAggregate aggregate);
     }
 }

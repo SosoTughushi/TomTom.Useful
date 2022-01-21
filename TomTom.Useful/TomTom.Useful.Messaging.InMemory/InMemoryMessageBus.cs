@@ -45,7 +45,7 @@ namespace TomTom.Useful.Messaging.InMemory
                             message.GetType().FullName,
                             message.Id,
                             message.CorrelationId,
-                            message.CausationId);
+                            message.CausedById);
                     }
                 }
             }
