@@ -70,9 +70,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Demo.Application", "Demo\TomTom.Useful.Demo.Application\TomTom.Useful.Demo.Application.csproj", "{52831A38-F0C9-4C92-AE13-714C40948621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Demo.Application", "Demo\TomTom.Useful.Demo.Application\TomTom.Useful.Demo.Application.csproj", "{52831A38-F0C9-4C92-AE13-714C40948621}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Demo.Domain.Events", "Demo\TomTom.Useful.Demo.Domain.Events\TomTom.Useful.Demo.Domain.Events.csproj", "{69371C9C-C574-4958-8061-B5117AFC93F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Demo.Application.Benchmark", "TomTom.Useful.Demo.Application.Benchmark\TomTom.Useful.Demo.Application.Benchmark.csproj", "{95AA5092-F272-4084-B701-C10DD028A8CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Messaging.Benchmark", "TomTom.Useful.Messaging.Benchmark\TomTom.Useful.Messaging.Benchmark.csproj", "{1FE1480F-7973-4623-944C-4DBE963F1A4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +180,14 @@ Global
 		{69371C9C-C574-4958-8061-B5117AFC93F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69371C9C-C574-4958-8061-B5117AFC93F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69371C9C-C574-4958-8061-B5117AFC93F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AA5092-F272-4084-B701-C10DD028A8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AA5092-F272-4084-B701-C10DD028A8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AA5092-F272-4084-B701-C10DD028A8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AA5092-F272-4084-B701-C10DD028A8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +220,8 @@ Global
 		{B2D0BE71-E584-4346-BE59-FEC8FE10EF99} = {0128CC1F-583A-4F9F-AACD-27B5113D3DC7}
 		{52831A38-F0C9-4C92-AE13-714C40948621} = {9BE64F62-A831-40C7-9080-6C400CEBFD49}
 		{69371C9C-C574-4958-8061-B5117AFC93F5} = {060873C5-8992-492A-8039-E76831240994}
+		{95AA5092-F272-4084-B701-C10DD028A8CF} = {9BE64F62-A831-40C7-9080-6C400CEBFD49}
+		{1FE1480F-7973-4623-944C-4DBE963F1A4C} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}
