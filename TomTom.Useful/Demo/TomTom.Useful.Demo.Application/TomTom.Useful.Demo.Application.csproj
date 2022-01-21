@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\TomTom.Useful.Messaging.InMemory\TomTom.Useful.Messaging.InMemory.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Commands\TomTom.Useful.Demo.Domain.Commands.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
+    <ProjectReference Include="..\TomTom.Useful.Demo.Domain\TomTom.Useful.Demo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,7 +13,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
                 return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandValidationError>(PlaylistCommandValidationError.AlreadyPublished);
             }
 
-            var events = aggregate.Publish(command);
+            var events = aggregate.Publish(command).ToList();
 
             return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandValidationError>(events);
         }

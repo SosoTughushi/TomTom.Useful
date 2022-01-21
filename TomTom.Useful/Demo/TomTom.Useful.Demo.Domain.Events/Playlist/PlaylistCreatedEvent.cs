@@ -3,7 +3,7 @@ using TomTom.Useful.EventSourcing;
 
 namespace TomTom.Useful.Demo.Domain.Events.Playlist
 {
-    public class PlaylistCreatedEvent : Event<PlaylistIdentity>
+    public class PlaylistCreatedEvent : PlaylistEventBase
     {
         public PlaylistCreatedEvent(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string causedById, string correlationId, string title, ExplorerIdentity explorerId, DateTime creationTimestamp) 
             : base(sourceAggregateId, sourceAggregateVersion, causedById, correlationId)

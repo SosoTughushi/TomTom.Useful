@@ -14,7 +14,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
         public CreateAggregateCommandHandlerResult<PlaylistIdentity, Playlist, PlaylistCommandValidationError> Handle(CreatePlaylistCommand command)
         {
             var playlist = new Playlist();
-            var events = playlist.Create(command);
+            var events = playlist.Create(command).ToList();
             return new CreateAggregateCommandHandlerResult<PlaylistIdentity, Playlist, PlaylistCommandValidationError>(playlist, events);
         }
     }

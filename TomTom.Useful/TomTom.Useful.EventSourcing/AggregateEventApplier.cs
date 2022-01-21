@@ -22,9 +22,10 @@
         {
             foreach (var @event in events)
             {
-                var methodInfo = ApplyMethods[@event.GetType()];
-
-                methodInfo.Invoke(aggregate, new object[] { @event });
+                if (ApplyMethods.TryGetValue(@event.GetType(), out var methodInfo))
+                {
+                    methodInfo.Invoke(aggregate, new object[] { @event });
+                }
             }
         }
     }

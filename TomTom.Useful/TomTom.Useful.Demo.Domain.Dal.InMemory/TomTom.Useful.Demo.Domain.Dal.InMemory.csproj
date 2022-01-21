@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TomTom.Useful.EventSourcing\TomTom.Useful.EventSourcing.csproj" />
-    <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
+    <ProjectReference Include="..\Demo\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
+    <ProjectReference Include="..\Demo\TomTom.Useful.Demo.Domain\TomTom.Useful.Demo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

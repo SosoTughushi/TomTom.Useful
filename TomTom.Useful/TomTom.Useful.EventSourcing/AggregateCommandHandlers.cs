@@ -12,20 +12,20 @@ using TomTom.Useful.Repositories.Abstractions;
 
 namespace TomTom.Useful.EventSourcing
 {
-    public partial class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TValidationError> : IHostedService
+    public abstract class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TValidationError> : IHostedService
         where TAggregate : IAggregate<TAggregateIdentity>
     {
         private readonly ISubscriber<ICommand<TAggregateIdentity>> subscriber;
-        private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate> aggregateRepository;
+        private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository;
         private readonly IEventPublisher publisher;
 
         private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> modifyHandler;
         private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>?> createHandler;
         private IAsyncDisposable? subscription;
 
-        public AggregateCommandHandlers(
+        protected AggregateCommandHandlers(
             ISubscriber<ICommand<TAggregateIdentity>> subscriber,
-            IEntityByKeyProvider<TAggregateIdentity, TAggregate> aggregateRepository,
+            IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository,
             IEventPublisher publisher)
         {
             this.subscriber = subscriber;
@@ -38,21 +38,21 @@ namespace TomTom.Useful.EventSourcing
             };
             createHandler = command => null;
         }
+
+        protected abstract void RegisterCommandHandlers();
+
         protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>> handler)
             where TCommand : ICommand<TAggregateIdentity>
         {
-            if (createHandler == null)
+            createHandler = command =>
             {
-                createHandler = command =>
+                if (command is TCommand tCommand)
                 {
-                    if (command is TCommand tCommand)
-                    {
-                        return handler(tCommand);
-                    }
+                    return handler(tCommand);
+                }
 
-                    return null;
-                };
-            }
+                return null;
+            };
         }
 
         protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> handler)
@@ -71,6 +71,7 @@ namespace TomTom.Useful.EventSourcing
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
+            RegisterCommandHandlers();
             this.subscription = await subscriber.Subscribe(OnCommand);
         }
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -132,7 +133,7 @@ namespace TomTom.Useful.EventSourcing
             }
         }
 
-        
+
     }
 
     #region Result Classes
@@ -166,7 +167,7 @@ namespace TomTom.Useful.EventSourcing
         where TCommand : ICreateCommand<TAggregateIdentity>
         where TAggregate : IAggregate<TAggregateIdentity>
     {
-        CreateAggregateCommandHandlerResult< TAggregateIdentity, TAggregate, TError> Handle(TCommand command);
+        CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TError> Handle(TCommand command);
     }
 
     public interface IAggregateCommandHandler<TAggregateIdentity, TCommand, TAggregate, TError>

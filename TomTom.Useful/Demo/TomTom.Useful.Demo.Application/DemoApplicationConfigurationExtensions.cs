@@ -3,6 +3,7 @@ using TomTom.Useful.CQRS;
 using TomTom.Useful.Demo.Domain.Identities;
 using TomTom.Useful.Messaging.InMemory;
 using TomTom.Useful.Serializers.Json;
+using TomTom.Useful.Demo.Domain;
 
 namespace TomTom.Useful.Demo.Application
 {
@@ -27,6 +28,7 @@ namespace TomTom.Useful.Demo.Application
 
             services.AddTransient<IPlaylistWriter, PlaylistWriter>();
 
+            services.AddDemoDomainCommandHandlers();
         }
     }
 }
