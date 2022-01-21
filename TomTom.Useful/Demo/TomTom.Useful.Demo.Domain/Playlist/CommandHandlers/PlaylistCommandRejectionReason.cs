@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 {
-    public enum PlaylistCommandValidationError
+    public enum PlaylistCommandRejectionReason
     {
-        AlreadyPublished
+        PlaylistIsAlreadyPublished
     }
 }

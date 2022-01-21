@@ -26,6 +26,11 @@ namespace TomTom.Useful.Demo.Domain
                 {
                     LogWholeMessageOnFault = true
                 });
+
+                builder.AddInMemoryMesageBus<ResultOfPlaylistCommand>(new InMemoryBusSettings
+                {
+                    LogWholeMessageOnFault = false
+                });
             });
 
             services.AddEventSourcing(builder =>

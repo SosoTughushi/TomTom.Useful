@@ -4,18 +4,18 @@ using TomTom.Useful.EventSourcing;
 
 namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 {
-    public class HandlePublishPlaylist : IAggregateCommandHandler<PlaylistIdentity, PublishPlaylistCommand, Playlist, PlaylistCommandValidationError>
+    public class HandlePublishPlaylist : IAggregateCommandHandler<PlaylistIdentity, PublishPlaylistCommand, Playlist, PlaylistCommandRejectionReason>
     {
-        public AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandValidationError> Handle(PublishPlaylistCommand command, Playlist aggregate)
+        public AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandRejectionReason> Handle(PublishPlaylistCommand command, Playlist aggregate)
         {
             if(aggregate.Published)
             {
-                return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandValidationError>(PlaylistCommandValidationError.AlreadyPublished);
+                return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandRejectionReason>(PlaylistCommandRejectionReason.PlaylistIsAlreadyPublished);
             }
 
             var events = aggregate.Publish(command).ToList();
 
-            return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandValidationError>(events);
+            return new AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandRejectionReason>(events);
         }
     }
 }

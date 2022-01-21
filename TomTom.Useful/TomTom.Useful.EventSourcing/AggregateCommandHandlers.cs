@@ -12,15 +12,15 @@ using TomTom.Useful.Repositories.Abstractions;
 
 namespace TomTom.Useful.EventSourcing
 {
-    public abstract class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TValidationError> : IHostedService
+    public abstract class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TRejectionReason> : IHostedService
         where TAggregate : IAggregate<TAggregateIdentity>
     {
         private readonly ISubscriber<ICommand<TAggregateIdentity>> subscriber;
         private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository;
         private readonly IEventPublisher publisher;
 
-        private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> modifyHandler;
-        private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>?> createHandler;
+        private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>> modifyHandler;
+        private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>?> createHandler;
         private IAsyncDisposable? subscription;
 
         protected AggregateCommandHandlers(
@@ -41,7 +41,7 @@ namespace TomTom.Useful.EventSourcing
 
         protected abstract void RegisterCommandHandlers();
 
-        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError>> handler)
+        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>> handler)
             where TCommand : ICommand<TAggregateIdentity>
         {
             createHandler = command =>
@@ -55,7 +55,7 @@ namespace TomTom.Useful.EventSourcing
             };
         }
 
-        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TValidationError>> handler)
+        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>> handler)
         {
             var prev = modifyHandler;
 
@@ -72,7 +72,7 @@ namespace TomTom.Useful.EventSourcing
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             RegisterCommandHandlers();
-            this.subscription = await subscriber.Subscribe(OnCommand);
+            this.subscription = await subscriber.Subscribe(HandleCommand);
         }
         public async Task StopAsync(CancellationToken cancellationToken)
         {
@@ -81,56 +81,72 @@ namespace TomTom.Useful.EventSourcing
                 await subscription.DisposeAsync();
             }
         }
-        protected virtual Task OnValidationError(TValidationError error, ICommand<TAggregateIdentity> command, TAggregate? aggregate = default(TAggregate))
+
+        protected virtual Task OnException(ICommand<TAggregateIdentity> command, Exception ex)
         {
             return Task.CompletedTask;
         }
 
-        protected virtual Task OnSuccessfullHandle(ICommand<TAggregateIdentity> command, TAggregate aggregate)
+        protected virtual Task OnCommandRejected(TRejectionReason error, ICommand<TAggregateIdentity> command, TAggregate? aggregate = default(TAggregate))
         {
             return Task.CompletedTask;
         }
 
-        private async Task OnCommand(ICommand<TAggregateIdentity> command, ICurrentMessageContext context)
+        protected virtual Task OnCommandSucceeded(ICommand<TAggregateIdentity> command, TAggregate aggregate)
         {
-            var createdResult = this.createHandler(command);
-            if (createdResult != null)
+            return Task.CompletedTask;
+        }
+
+        private async Task HandleCommand(ICommand<TAggregateIdentity> command, ICurrentMessageContext context)
+        {
+            try
             {
-                if (createdResult.Success)
+                var createdResult = this.createHandler(command);
+                if (createdResult != null)
                 {
-                    var (newAggregate, events) = createdResult.Value;
+                    if (createdResult.Success)
+                    {
+                        var (newAggregate, events) = createdResult.Value;
+                        await this.publisher.Publish(events);
+                        await context.Ack();
+                        await OnCommandSucceeded(command, newAggregate);
+                    }
+                    else
+                    {
+                        await context.Nack(createdResult.Error);
+                        await OnCommandRejected(createdResult.Error, command);
+                    }
+
+                    return;
+                }
+
+                var aggregate = await this.aggregateRepository.Get(command.TargetIdentity);
+
+                if (aggregate == null)
+                {
+                    throw new InvalidOperationException($"Aggregate of type {typeof(TAggregate)} with Identity='{command.TargetIdentity}' does not exist.");
+                }
+
+                var modifyResult = this.modifyHandler(command, aggregate);
+
+                if (modifyResult.Success)
+                {
+                    var events = modifyResult.Value;
                     await this.publisher.Publish(events);
                     await context.Ack();
+                    await OnCommandSucceeded(command, aggregate);
                 }
                 else
                 {
-                    await context.Nack(createdResult.Error);
-                    await OnValidationError(createdResult.Error, command);
+                    await context.Nack(modifyResult.Error);
                 }
-
-                return;
             }
-
-            var aggregate = await this.aggregateRepository.Get(command.TargetIdentity);
-
-            if (aggregate == null)
+            catch (Exception ex)
             {
-                throw new InvalidOperationException($"Aggregate of type {typeof(TAggregate)} with Identity='{command.TargetIdentity}' does not exist.");
+                await this.OnException(command, ex);
+                throw;
             }
 
-            var modifyResult = this.modifyHandler(command, aggregate);
-
-            if (modifyResult.Success)
-            {
-                var events = modifyResult.Value;
-                await this.publisher.Publish(events);
-                await context.Ack();
-            }
-            else
-            {
-                await context.Nack(modifyResult.Error);
-                await OnSuccessfullHandle(command, aggregate);
-            }
         }
 
 
@@ -138,10 +154,10 @@ namespace TomTom.Useful.EventSourcing
 
     #region Result Classes
 
-    public class CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TValidationError> :
-        Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TValidationError>
+    public class CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason> :
+        Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TRejectionReason>
     {
-        public CreateAggregateCommandHandlerResult(TValidationError error) : base(error)
+        public CreateAggregateCommandHandlerResult(TRejectionReason error) : base(error)
         {
         }
 
@@ -150,13 +166,13 @@ namespace TomTom.Useful.EventSourcing
         }
     }
 
-    public class AggregateCommandHandlerResult<TAggregateIdentity, TValidationError> : Result<IEnumerable<Event<TAggregateIdentity>>, TValidationError>
+    public class AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason> : Result<IEnumerable<Event<TAggregateIdentity>>, TRejectionReason>
     {
         public AggregateCommandHandlerResult(IEnumerable<Event<TAggregateIdentity>> value) : base(value)
         {
         }
 
-        public AggregateCommandHandlerResult(TValidationError error) : base(error)
+        public AggregateCommandHandlerResult(TRejectionReason error) : base(error)
         {
         }
     }
