@@ -9,6 +9,11 @@
 
         public Guid Value { get; }
 
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
+
         public int CompareTo(PlaylistIdentity other)
         {
             return Value.CompareTo(other.Value);

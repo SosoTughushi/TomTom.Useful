@@ -43,7 +43,7 @@ namespace TomTom.Useful.Messaging.InMemory
                         this.logger.LogError(ex,
                             "Error while processing message of type {0}. Id='{1}', CorrelationId='{2}', CausationId='{3}'",
                             message.GetType().FullName,
-                            message.Id,
+                            message.MessageId,
                             message.CorrelationId,
                             message.CausedById);
                     }

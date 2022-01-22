@@ -18,14 +18,14 @@ namespace TomTom.Useful.CQRS
         public CommandBase(TTargetIdentity targetIdentity, Guid id, string causedById, string correlationId)
         {
             TargetIdentity = targetIdentity;
-            Id = id;
+            MessageId = id;
             CorrelationId = correlationId;
             CausedById = causedById;
         }
 
         public TTargetIdentity TargetIdentity { get; set; }
 
-        public Guid Id { get; set; }
+        public Guid MessageId { get; set; }
 
         public string CorrelationId { get; set; }
 
@@ -40,12 +40,12 @@ namespace TomTom.Useful.CQRS
 
         public CreateCommandBase(Guid id, string causedById, string correlationId)
         {
-            Id = id;
+            MessageId = id;
             CorrelationId = correlationId;
             CausedById = causedById;
         }
 
-        public Guid Id { get; set; } = Guid.Empty;
+        public Guid MessageId { get; set; } = Guid.Empty;
 
         public string CorrelationId { get; set; } = string.Empty;
 

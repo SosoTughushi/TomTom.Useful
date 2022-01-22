@@ -139,6 +139,7 @@ namespace TomTom.Useful.EventSourcing
                 else
                 {
                     await context.Nack(modifyResult.Error);
+                    await OnCommandRejected(modifyResult.Error, command);
                 }
             }
             catch (Exception ex)

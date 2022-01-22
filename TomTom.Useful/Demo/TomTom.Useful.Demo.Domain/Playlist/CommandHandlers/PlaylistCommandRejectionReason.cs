@@ -8,6 +8,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 {
     public enum PlaylistCommandRejectionReason
     {
-        PlaylistIsAlreadyPublished
+        PlaylistIsAlreadyPublished,
+        PlaylistWithSameTitleAlreadyExists
     }
 }

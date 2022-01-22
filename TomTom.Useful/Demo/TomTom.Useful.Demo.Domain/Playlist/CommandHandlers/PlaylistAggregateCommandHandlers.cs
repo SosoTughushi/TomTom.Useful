@@ -38,7 +38,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 
         protected override async Task OnCommandSucceeded(ICommand<PlaylistIdentity> command, Playlist aggregate)
         {
-            await this.resultPublisher.Publish(new ResultOfPlaylistCommand(command));
+            await this.resultPublisher.Publish(new ResultOfPlaylistCommand(aggregate.Id,command));
         }
 
         protected override async Task OnCommandRejected(PlaylistCommandRejectionReason error, ICommand<PlaylistIdentity> command, Playlist? aggregate = null)
@@ -52,12 +52,12 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
         }
     }
 
-    public class ResultOfPlaylistCommand : Result<Either<PlaylistCommandRejectionReason, Exception>>, IMessage
+    public class ResultOfPlaylistCommand : Result<PlaylistIdentity, Either<PlaylistCommandRejectionReason, Exception>>, IMessage
     {
-        public ResultOfPlaylistCommand(ICommand<PlaylistIdentity> playlistCommand) : base()
+        public ResultOfPlaylistCommand(PlaylistIdentity playlistId,ICommand<PlaylistIdentity> playlistCommand) : base(playlistId)
         {
-            this.Id = playlistCommand.Id;
-            this.CausedById = playlistCommand.Id.ToString();
+            this.MessageId = playlistCommand.MessageId;
+            this.CausedById = playlistCommand.MessageId.ToString();
             this.CorrelationId = playlistCommand.CorrelationId;
             this.PlaylistCommand = playlistCommand;
         }
@@ -65,8 +65,8 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
         public ResultOfPlaylistCommand(PlaylistCommandRejectionReason rejectionReason,ICommand<PlaylistIdentity> playlistCommand) 
             : base(new Either<PlaylistCommandRejectionReason, Exception>(rejectionReason))
         {
-            this.Id = playlistCommand.Id;
-            this.CausedById = playlistCommand.Id.ToString();
+            this.MessageId = playlistCommand.MessageId;
+            this.CausedById = playlistCommand.MessageId.ToString();
             this.CorrelationId = playlistCommand.CorrelationId;
             this.PlaylistCommand = playlistCommand;
         }
@@ -75,13 +75,13 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
         public ResultOfPlaylistCommand(Exception exception, ICommand<PlaylistIdentity> playlistCommand)
             : base(new Either<PlaylistCommandRejectionReason, Exception>(exception))
         {
-            this.Id = playlistCommand.Id;
-            this.CausedById = playlistCommand.Id.ToString();
+            this.MessageId = playlistCommand.MessageId;
+            this.CausedById = playlistCommand.MessageId.ToString();
             this.CorrelationId = playlistCommand.CorrelationId;
             this.PlaylistCommand = playlistCommand;
         }
 
-        public Guid Id { get; set; }
+        public Guid MessageId { get; set; }
 
         public string CorrelationId { get; }
 

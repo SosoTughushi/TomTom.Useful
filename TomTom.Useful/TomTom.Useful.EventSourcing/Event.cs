@@ -20,11 +20,11 @@ namespace TomTom.Useful.EventSourcing
             SourceAggregateVersion = sourceAggregateVersion;
             CausedById = causedById;
             CorrelationId = correlationId;
-            Id = Guid.NewGuid();
+            MessageId = Guid.NewGuid();
         }
 
         public long SourceAggregateVersion { get; }
-        public Guid Id { get; }
+        public Guid MessageId { get; }
 
         public string CorrelationId { get; }
         public string CausedById { get; }
@@ -39,7 +39,7 @@ namespace TomTom.Useful.EventSourcing
         }
 
         protected Event(ICommand<TSourceAggregateId> sourceCommand, long sourceAggregateVersion) 
-            : this(sourceCommand.TargetIdentity, sourceAggregateVersion, sourceCommand.Id.ToString(), sourceCommand.CorrelationId)
+            : this(sourceCommand.TargetIdentity, sourceAggregateVersion, sourceCommand.MessageId.ToString(), sourceCommand.CorrelationId)
         {
 
         }

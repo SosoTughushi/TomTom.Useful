@@ -4,6 +4,7 @@ using TomTom.Useful.Demo.Domain.Identities;
 using TomTom.Useful.Messaging.InMemory;
 using TomTom.Useful.Serializers.Json;
 using TomTom.Useful.Demo.Domain;
+using Microsoft.Extensions.Hosting;
 
 namespace TomTom.Useful.Demo.Application
 {
@@ -26,7 +27,9 @@ namespace TomTom.Useful.Demo.Application
                 builder.ConvertMessagePublisherToCommandPublisher<ICommand<PlaylistIdentity>>();
             });
 
-            services.AddTransient<IPlaylistWriter, PlaylistWriter>();
+            services.AddSingleton<PlaylistWriter>();
+            services.AddSingleton<IPlaylistWriter>(provider => provider.GetService<PlaylistWriter>());
+            services.AddSingleton<IHostedService>(provider => provider.GetService<PlaylistWriter>());
 
             services.AddDemoDomainCommandHandlers();
         }
