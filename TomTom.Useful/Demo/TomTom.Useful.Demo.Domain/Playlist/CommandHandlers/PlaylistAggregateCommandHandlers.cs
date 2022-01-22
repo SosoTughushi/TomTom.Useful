@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TomTom.Useful.CQRS;
+﻿using TomTom.Useful.CQRS;
 using TomTom.Useful.DataTypes;
 using TomTom.Useful.Demo.Domain.Commands.Playlist;
 using TomTom.Useful.Demo.Domain.Identities;
+using TomTom.Useful.EventSourcing.CommandHandling;
 using TomTom.Useful.EventSourcing;
 using TomTom.Useful.Messaging;
 using TomTom.Useful.Repositories.Abstractions;
@@ -21,7 +17,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
             IPublisher<ResultOfPlaylistCommand> resultPublisher
             , ISubscriber<ICommand<PlaylistIdentity>> subscriber
             , IEntityByKeyProvider<PlaylistIdentity, Playlist?> aggregateRepository
-            , IEventPublisher publisher)
+            , IEventPublisher<PlaylistIdentity> publisher)
             : base(subscriber, aggregateRepository, publisher)
         {
             this.resultPublisher = resultPublisher;
@@ -88,36 +84,5 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
         public string CausedById { get; }
 
         public ICommand<PlaylistIdentity> PlaylistCommand { get; }
-    }
-
-
-    public class Either<T1, T2>
-    {
-        private bool isLeft;
-        public T1 Left { get; }
-
-        public T2 Right { get; }
-
-        public Either(T1 left)
-        {
-            this.Left = left;
-            this.isLeft = true;
-        }
-
-        public Either(T2 right)
-        {
-            this.Right = right;
-            this.isLeft = false;
-        }
-
-        public TResult Match<TResult>(Func<T1, TResult> leftMatch, Func<T2, TResult> rightMatch)
-        {
-            if (isLeft)
-            {
-                return leftMatch(Left);
-            }
-
-            return rightMatch(Right);
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace TomTom.Useful.Demo.Domain
 
             services.AddInMemoryBus(builder =>
             {
-                builder.AddInMemoryMesageBus<Event>(new InMemoryBusSettings
+                builder.AddInMemoryMesageBus<Event<PlaylistIdentity>>(new InMemoryBusSettings
                 {
                     LogWholeMessageOnFault = true
                 });
@@ -35,7 +35,7 @@ namespace TomTom.Useful.Demo.Domain
 
             services.AddEventSourcing(builder =>
             {
-                builder.ConvertMessagePublisherToEventPublisher();
+                builder.ConvertMessagePublisherToEventPublisher<PlaylistIdentity>();
             });
 
 

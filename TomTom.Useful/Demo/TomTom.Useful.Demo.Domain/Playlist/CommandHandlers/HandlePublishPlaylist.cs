@@ -1,6 +1,6 @@
 ﻿using TomTom.Useful.Demo.Domain.Commands.Playlist;
 using TomTom.Useful.Demo.Domain.Identities;
-using TomTom.Useful.EventSourcing;
+using TomTom.Useful.EventSourcing.CommandHandling;
 
 namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 {

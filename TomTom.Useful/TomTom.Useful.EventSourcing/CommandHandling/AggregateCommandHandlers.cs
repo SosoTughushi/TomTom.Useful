@@ -6,18 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TomTom.Useful.CQRS;
-using TomTom.Useful.DataTypes;
 using TomTom.Useful.Messaging;
 using TomTom.Useful.Repositories.Abstractions;
 
-namespace TomTom.Useful.EventSourcing
+namespace TomTom.Useful.EventSourcing.CommandHandling
 {
     public abstract class AggregateCommandHandlers<TAggregate, TAggregateIdentity, TRejectionReason> : IHostedService
         where TAggregate : IAggregate<TAggregateIdentity>
     {
         private readonly ISubscriber<ICommand<TAggregateIdentity>> subscriber;
         private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository;
-        private readonly IEventPublisher publisher;
+        private readonly IEventPublisher<TAggregateIdentity> publisher;
 
         private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>> modifyHandler;
         private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>?> createHandler;
@@ -26,7 +25,7 @@ namespace TomTom.Useful.EventSourcing
         protected AggregateCommandHandlers(
             ISubscriber<ICommand<TAggregateIdentity>> subscriber,
             IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository,
-            IEventPublisher publisher)
+            IEventPublisher<TAggregateIdentity> publisher)
         {
             this.subscriber = subscriber;
             this.aggregateRepository = aggregateRepository;
@@ -152,33 +151,6 @@ namespace TomTom.Useful.EventSourcing
 
 
     }
-
-    #region Result Classes
-
-    public class CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason> :
-        Result<(TAggregate, IEnumerable<Event<TAggregateIdentity>>), TRejectionReason>
-    {
-        public CreateAggregateCommandHandlerResult(TRejectionReason error) : base(error)
-        {
-        }
-
-        public CreateAggregateCommandHandlerResult(TAggregate aggregate, IEnumerable<Event<TAggregateIdentity>> events) : base((aggregate, events))
-        {
-        }
-    }
-
-    public class AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason> : Result<IEnumerable<Event<TAggregateIdentity>>, TRejectionReason>
-    {
-        public AggregateCommandHandlerResult(IEnumerable<Event<TAggregateIdentity>> value) : base(value)
-        {
-        }
-
-        public AggregateCommandHandlerResult(TRejectionReason error) : base(error)
-        {
-        }
-    }
-
-    #endregion
 
     public interface ICreateAggregateCommandHandler<TAggregateIdentity, TAggregate, TCommand, TError>
         where TCommand : ICreateCommand<TAggregateIdentity>

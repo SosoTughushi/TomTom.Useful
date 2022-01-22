@@ -27,12 +27,12 @@ namespace TomTom.Useful.EventSourcing
                 this.services = services;
             }
 
-            public EventSourcingConfigurationBuilder ConvertMessagePublisherToEventPublisher()
+            public EventSourcingConfigurationBuilder ConvertMessagePublisherToEventPublisher<TEventSourceIdentity>()
             {
                 this.services.AddTransient(provider =>
                 {
-                    var bus = provider.GetService<IPublisher<Event>>()
-                        ?? throw new InvalidOperationException($"IPublisher<{typeof(Event).Name}> is not registered in DI.");
+                    var bus = provider.GetService<IPublisher<Event<TEventSourceIdentity>>>()
+                        ?? throw new InvalidOperationException($"IPublisher<{typeof(Event).Name}<{typeof(TEventSourceIdentity).Name}>> is not registered in DI.");
 
                     return bus.AsEventPublisher();
                 });

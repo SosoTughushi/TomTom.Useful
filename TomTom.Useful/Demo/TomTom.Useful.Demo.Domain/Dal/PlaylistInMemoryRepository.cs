@@ -12,10 +12,10 @@ namespace TomTom.Useful.Demo.Domain.Dal
     public class PlaylistInMemoryRepository : IEntityByKeyProvider<PlaylistIdentity, Playlist.Playlist?>, IHostedService
     {
         private readonly ConcurrentDictionary<PlaylistIdentity, Playlist.Playlist> playlists = new ConcurrentDictionary<PlaylistIdentity, Playlist.Playlist>();
-        private readonly ISubscriber<Event> eventSubscriber;
+        private readonly ISubscriber<Event<PlaylistIdentity>> eventSubscriber;
         private IAsyncDisposable? subscription;
 
-        public PlaylistInMemoryRepository(ISubscriber<Event> eventSubscriber)
+        public PlaylistInMemoryRepository(ISubscriber<Event<PlaylistIdentity>> eventSubscriber)
         {
             this.eventSubscriber = eventSubscriber;
         }
@@ -47,17 +47,11 @@ namespace TomTom.Useful.Demo.Domain.Dal
             }
         }
 
-        public void OnEvent(Event @event)
+        public void OnEvent(Event<PlaylistIdentity> @event)
         {
-            if (@event is not PlaylistEventBase playlistEvent)
-            {
-                return;
-            }
+            var playlist = playlists.GetOrAdd(@event.SourceAggregateId, (key) => new Playlist.Playlist());
 
-            var playlist = playlists.GetOrAdd(playlistEvent.SourceAggregateId, (key) => new Playlist.Playlist());
-
-
-            AggregateEventApplier<Playlist.Playlist>.ApplyEvents(playlist, Enumerable.Repeat(playlistEvent, 1));
+            AggregateEventApplier<Playlist.Playlist>.ApplyEvents(playlist, Enumerable.Repeat(@event, 1));
         }
     }
 }
