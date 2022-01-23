@@ -1,8 +1,8 @@
 ﻿namespace TomTom.Useful.Demo.Application
 {
-    public class DemoAppContext
+    public class DemoRequestContext
     {
-        public DemoAppContext(string correlationId, string requestId, Guid currentUserId)
+        public DemoRequestContext(string correlationId, string requestId, Guid currentUserId)
         {
             CorrelationId = correlationId;
             RequestId = requestId;

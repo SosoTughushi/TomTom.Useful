@@ -1,6 +1,6 @@
 ﻿using TomTom.Useful.DataTypes;
 
-namespace TomTom.Useful.Demo.Application
+namespace TomTom.Useful.Demo.Application.Playlist
 {
     public class CreatePlaylistResult : Result<string, CreatePlaylistFailureReason>
     {

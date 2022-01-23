@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj" />
+    <ProjectReference Include="..\..\TomTom.Useful.Serializers.Abstractions\TomTom.Useful.Serializers.Abstractions.csproj" />
+    <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Events\TomTom.Useful.Demo.Domain.Events.csproj" />
+    <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
+  </ItemGroup>
+
+</Project>

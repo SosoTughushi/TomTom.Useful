@@ -6,7 +6,7 @@ using TomTom.Useful.Demo.Domain.Identities;
 using TomTom.Useful.Demo.Domain.Playlist.CommandHandlers;
 using TomTom.Useful.Messaging;
 
-namespace TomTom.Useful.Demo.Application
+namespace TomTom.Useful.Demo.Application.Playlist
 {
     public class PlaylistWriter : IPlaylistWriter, IHostedService
     {
@@ -23,7 +23,7 @@ namespace TomTom.Useful.Demo.Application
             this.commandResultsSubscriber = commandResultsSubscriber;
         }
 
-        public async Task<CreatePlaylistResult> Create(string title, DemoAppContext context)
+        public async Task<CreatePlaylistResult> Create(string title, DemoRequestContext context)
         {
             var command = PlaylistCommandFactory.Create(
                 explorerId: context.CurrentUserId,
@@ -52,7 +52,7 @@ namespace TomTom.Useful.Demo.Application
             ex => throw ex);
         }
 
-        public async Task<PublishPlaylistResult> Publish(Guid playlistId, DemoAppContext context)
+        public async Task<PublishPlaylistResult> Publish(Guid playlistId, DemoRequestContext context)
         {
             var command = PlaylistCommandFactory.PublishPlaylist(
                 playlistId: playlistId,

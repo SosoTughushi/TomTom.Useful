@@ -7,9 +7,9 @@ namespace TomTom.Useful.Demo.WebApi
 {
     public static class CurrentUserExtensions
     {
-        public static DemoAppContext ToDemoAppContext(this ControllerContext controllerContext)
+        public static DemoRequestContext ToDemoAppContext(this ControllerContext controllerContext)
         {
-            return new DemoAppContext(
+            return new DemoRequestContext(
                 correlationId: controllerContext.HttpContext.TraceIdentifier,
                 requestId: controllerContext.HttpContext.TraceIdentifier,
                 currentUserId: Guid.NewGuid()); // todo: extract from clains
