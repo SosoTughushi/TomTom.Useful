@@ -9,9 +9,12 @@ using TomTom.Useful.Demo.Domain.Events.Playlist;
 
 namespace TomTom.Useful.Demo.Domain.Dal
 {
-    public class PlaylistInMemoryRepository : IEntityByKeyProvider<PlaylistIdentity, Playlist.Playlist?>, IHostedService
+    public class PlaylistInMemoryRepository :
+        IEntityByKeyProvider<PlaylistIdentity, Playlist.Playlist?>
+        , IFilteredListProvider<Playlist.Playlist>
+        , IHostedService
     {
-        private readonly ConcurrentDictionary<PlaylistIdentity, Playlist.Playlist> playlists = new ConcurrentDictionary<PlaylistIdentity, Playlist.Playlist>();
+        private readonly ConcurrentDictionary<PlaylistIdentity, Playlist.Playlist> playlists = new();
         private readonly ISubscriber<Event<PlaylistIdentity>> eventSubscriber;
         private IAsyncDisposable? subscription;
 
@@ -28,6 +31,14 @@ namespace TomTom.Useful.Demo.Domain.Dal
             }
 
             return Task.FromResult(default(Playlist.Playlist));
+        }
+
+        public Task<IEnumerable<Playlist.Playlist>> GetFiltered(System.Linq.Expressions.Expression<Func<Playlist.Playlist, bool>> filterExpression)
+        {
+            var compiledExpression = filterExpression.Compile();
+            var playlistsFiltered = this.playlists.Values.Where(compiledExpression); // unsafe
+
+            return Task.FromResult(playlistsFiltered);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

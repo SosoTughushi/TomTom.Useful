@@ -30,6 +30,11 @@ namespace TomTom.Useful.Demo.Domain.Identities
             return this.Value.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return this.Value.ToString();
+        }
+
         public static implicit operator Guid(ExplorerIdentity err) => err.Value;
 
         public static implicit operator ExplorerIdentity(Guid err) => new(err);

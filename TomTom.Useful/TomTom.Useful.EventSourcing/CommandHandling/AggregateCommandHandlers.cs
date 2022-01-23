@@ -18,8 +18,8 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
         private readonly IEntityByKeyProvider<TAggregateIdentity, TAggregate?> aggregateRepository;
         private readonly IEventPublisher<TAggregateIdentity> publisher;
 
-        private Func<ICommand<TAggregateIdentity>, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>> modifyHandler;
-        private Func<ICommand<TAggregateIdentity>, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>?> createHandler;
+        private Func<ICommand<TAggregateIdentity>, TAggregate, Task<AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>>> modifyHandler;
+        private Func<ICommand<TAggregateIdentity>, Task<CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>?>> createHandler;
         private IAsyncDisposable? subscription;
 
         protected AggregateCommandHandlers(
@@ -40,7 +40,7 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
 
         protected abstract void RegisterCommandHandlers();
 
-        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>> handler)
+        protected void RegisterCreateCommandHandler<TCommand>(Func<TCommand, Task<CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TRejectionReason>>> handler)
             where TCommand : ICommand<TAggregateIdentity>
         {
             createHandler = command =>
@@ -54,7 +54,7 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
             };
         }
 
-        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>> handler)
+        protected void RegisterCommandHandler<TCommand>(Func<TCommand, TAggregate, Task<AggregateCommandHandlerResult<TAggregateIdentity, TRejectionReason>>> handler)
         {
             var prev = modifyHandler;
 
@@ -100,7 +100,7 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
         {
             try
             {
-                var createdResult = this.createHandler(command);
+                var createdResult = await this.createHandler(command);
                 if (createdResult != null)
                 {
                     if (createdResult.Success)
@@ -126,7 +126,7 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
                     throw new InvalidOperationException($"Aggregate of type {typeof(TAggregate)} with Identity='{command.TargetIdentity}' does not exist.");
                 }
 
-                var modifyResult = this.modifyHandler(command, aggregate);
+                var modifyResult = await this.modifyHandler(command, aggregate);
 
                 if (modifyResult.Success)
                 {
@@ -156,11 +156,11 @@ namespace TomTom.Useful.EventSourcing.CommandHandling
         where TCommand : ICreateCommand<TAggregateIdentity>
         where TAggregate : IAggregate<TAggregateIdentity>
     {
-        CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TError> Handle(TCommand command);
+        Task<CreateAggregateCommandHandlerResult<TAggregateIdentity, TAggregate, TError>> Handle(TCommand command);
     }
 
     public interface IAggregateCommandHandler<TAggregateIdentity, TCommand, TAggregate, TError>
     {
-        AggregateCommandHandlerResult<TAggregateIdentity, TError> Handle(TCommand command, TAggregate aggregate);
+        Task<AggregateCommandHandlerResult<TAggregateIdentity, TError>> Handle(TCommand command, TAggregate aggregate);
     }
 }

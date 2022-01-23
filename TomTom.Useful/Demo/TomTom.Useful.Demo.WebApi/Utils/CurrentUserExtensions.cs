@@ -7,12 +7,13 @@ namespace TomTom.Useful.Demo.WebApi
 {
     public static class CurrentUserExtensions
     {
+        private static Guid CurrentUserId = Guid.NewGuid();
         public static DemoRequestContext ToDemoAppContext(this ControllerContext controllerContext)
         {
             return new DemoRequestContext(
                 correlationId: controllerContext.HttpContext.TraceIdentifier,
                 requestId: controllerContext.HttpContext.TraceIdentifier,
-                currentUserId: Guid.NewGuid()); // todo: extract from clains
+                currentUserId: CurrentUserId); // todo: extract from claims
         }
     }
 }

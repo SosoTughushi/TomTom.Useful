@@ -25,6 +25,7 @@
                 if (ApplyMethods.TryGetValue(@event.GetType(), out var methodInfo))
                 {
                     methodInfo.Invoke(aggregate, new object[] { @event });
+                    aggregate.Version = @event.SourceAggregateVersion;
                 }
             }
         }

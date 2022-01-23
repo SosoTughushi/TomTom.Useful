@@ -12,20 +12,23 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
     public class PlaylistAggregateCommandHandlers : AggregateCommandHandlers<Playlist, PlaylistIdentity, PlaylistCommandRejectionReason>
     {
         private readonly IPublisher<ResultOfPlaylistCommand> resultPublisher;
+        private readonly IFilteredListProvider<Playlist> filteredPlaylistProvider;
 
         public PlaylistAggregateCommandHandlers(
             IPublisher<ResultOfPlaylistCommand> resultPublisher
             , ISubscriber<ICommand<PlaylistIdentity>> subscriber
             , IEntityByKeyProvider<PlaylistIdentity, Playlist?> aggregateRepository
+            , IFilteredListProvider<Playlist> filteredPlaylistProvider
             , IEventPublisher<PlaylistIdentity> publisher)
             : base(subscriber, aggregateRepository, publisher)
         {
             this.resultPublisher = resultPublisher;
+            this.filteredPlaylistProvider = filteredPlaylistProvider;
         }
 
         protected override void RegisterCommandHandlers()
         {
-            var handleCreatePlaylist = new HandleCreatePlaylist();
+            var handleCreatePlaylist = new HandleCreatePlaylist(filteredPlaylistProvider);
             this.RegisterCreateCommandHandler<CreatePlaylistCommand>(handleCreatePlaylist.Handle);
 
             var handlePublishPlaylist = new HandlePublishPlaylist();

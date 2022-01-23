@@ -6,7 +6,7 @@ namespace TomTom.Useful.Demo.Domain.Playlist.CommandHandlers
 {
     public class HandlePublishPlaylist : IAggregateCommandHandler<PlaylistIdentity, PublishPlaylistCommand, Playlist, PlaylistCommandRejectionReason>
     {
-        public AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandRejectionReason> Handle(PublishPlaylistCommand command, Playlist aggregate)
+        public async Task<AggregateCommandHandlerResult<PlaylistIdentity, PlaylistCommandRejectionReason>> Handle(PublishPlaylistCommand command, Playlist aggregate)
         {
             if(aggregate.Published)
             {

@@ -27,10 +27,10 @@ namespace TomTom.Useful.Demo.Application.Projections
             PlaylistsById.TryAdd(entity.Id, entity);
 
             PlaylistsByUsers.AddOrUpdate(entity.OwnerId,
-                _ => new Dictionary<Guid, ProjectedPlaylist> { { entity.OwnerId, entity } }
+                _ => new Dictionary<Guid, ProjectedPlaylist> { { entity.Id, entity } }
                 , (_, dictionary) =>
                  {
-                     dictionary.Add(entity.OwnerId, entity);
+                     dictionary.Add(entity.Id, entity);
                      return dictionary;
                  });
 
@@ -42,10 +42,10 @@ namespace TomTom.Useful.Demo.Application.Projections
             PlaylistsById.AddOrUpdate(entity.Id, entity, (key, existing) => entity);
 
             PlaylistsByUsers.AddOrUpdate(entity.OwnerId,
-                key => new Dictionary<Guid, ProjectedPlaylist> { { entity.OwnerId, entity } }
+                key => new Dictionary<Guid, ProjectedPlaylist> { { entity.Id, entity } }
                 , (key, dictionary) =>
                 {
-                    dictionary[entity.OwnerId] = entity;
+                    dictionary[entity.Id] = entity;
                     return dictionary;
                 });
 
@@ -57,7 +57,7 @@ namespace TomTom.Useful.Demo.Application.Projections
             if (PlaylistsById.TryRemove(identity, out var entity))
             {
                 PlaylistsByUsers.AddOrUpdate(entity.OwnerId,
-                    _ => new Dictionary<Guid, ProjectedPlaylist> { { entity.OwnerId, entity } },
+                    _ => new Dictionary<Guid, ProjectedPlaylist> (),
                     (_, dictionary) =>
                     {
                         dictionary.Remove(entity.Id);
@@ -81,7 +81,7 @@ namespace TomTom.Useful.Demo.Application.Projections
         {
             if(PlaylistsByUsers.TryGetValue(userId, out var values))
             {
-                var result = values.Select(c=>c.Value).ToList();
+                var result = values.Select(c=>c.Value).ToList(); // unsafe
                 return Task.FromResult(result);
             }
 

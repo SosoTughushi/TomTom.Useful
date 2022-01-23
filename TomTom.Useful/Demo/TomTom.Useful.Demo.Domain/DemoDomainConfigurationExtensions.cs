@@ -41,6 +41,7 @@ namespace TomTom.Useful.Demo.Domain
 
             services.AddSingleton<PlaylistInMemoryRepository>();
             services.AddSingleton<IHostedService>(provider => provider.GetService<PlaylistInMemoryRepository>());
+            services.AddSingleton<IFilteredListProvider<Playlist.Playlist>>(provider => provider.GetService<PlaylistInMemoryRepository>());
             services.AddTransient<IEntityByKeyProvider<PlaylistIdentity, Playlist.Playlist?>>(provider => provider.GetService<PlaylistInMemoryRepository>());
         }
     }
