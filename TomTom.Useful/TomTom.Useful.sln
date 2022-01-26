@@ -54,7 +54,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Messaging.Benchmark", "TomTom.Useful.Messaging.Benchmark\TomTom.Useful.Messaging.Benchmark.csproj", "{1FE1480F-7973-4623-944C-4DBE963F1A4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Messaging.MassTransit", "TomTom.Useful.Messaging.MassTransit\TomTom.Useful.Messaging.MassTransit.csproj", "{29683086-3DA8-47AF-AF11-019F7F264919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Messaging.InMemory.Benchmark", "TomTom.Useful.Messaging.InMemory.Benchmark\TomTom.Useful.Messaging.InMemory.Benchmark.csproj", "{7CD4A505-A822-4E1D-AAE9-33C57B5B4899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.AsyncToSync.Benchmark", "TomTom.Useful.AsyncToSync.Benchmark\TomTom.Useful.AsyncToSync.Benchmark.csproj", "{30DDFA12-231A-42DB-B24B-CB6BA8120356}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,10 +138,18 @@ Global
 		{54AA0A89-46E1-40EB-A767-615F6A3CDFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54AA0A89-46E1-40EB-A767-615F6A3CDFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54AA0A89-46E1-40EB-A767-615F6A3CDFA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FE1480F-7973-4623-944C-4DBE963F1A4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29683086-3DA8-47AF-AF11-019F7F264919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29683086-3DA8-47AF-AF11-019F7F264919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29683086-3DA8-47AF-AF11-019F7F264919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29683086-3DA8-47AF-AF11-019F7F264919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD4A505-A822-4E1D-AAE9-33C57B5B4899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD4A505-A822-4E1D-AAE9-33C57B5B4899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD4A505-A822-4E1D-AAE9-33C57B5B4899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD4A505-A822-4E1D-AAE9-33C57B5B4899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DDFA12-231A-42DB-B24B-CB6BA8120356}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DDFA12-231A-42DB-B24B-CB6BA8120356}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DDFA12-231A-42DB-B24B-CB6BA8120356}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DDFA12-231A-42DB-B24B-CB6BA8120356}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,7 +173,9 @@ Global
 		{6107A0E6-DCCE-49B4-B59E-DADD49520260} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 		{C331FF54-4E47-4A08-AD5E-45093E0BBD27} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
 		{54AA0A89-46E1-40EB-A767-615F6A3CDFA9} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
-		{1FE1480F-7973-4623-944C-4DBE963F1A4C} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
+		{29683086-3DA8-47AF-AF11-019F7F264919} = {980EF417-1354-43EB-AFEA-08BC95224B4F}
+		{7CD4A505-A822-4E1D-AAE9-33C57B5B4899} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
+		{30DDFA12-231A-42DB-B24B-CB6BA8120356} = {38B09567-715F-47AF-B846-8F2FD2BBF3CA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6F75036-E577-490B-AF49-AFAE7765AE93}

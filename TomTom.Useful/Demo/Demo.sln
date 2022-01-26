@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32104.313
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TomTom.Useful.Demo.WebApi", "TomTom.Useful.Demo.WebApi\TomTom.Useful.Demo.WebApi.csproj", "{DAE40A6F-597D-4838-87AD-3407FD0A4C92}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application", "1. Application", "{3458C0A8-8606-4B6B-872E-83E51AEC4958}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Presentation", "2. Presentation", "{FB1BF9B0-4528-4E4B-81AF-4D10865D3276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Useful.Demo.Application.Benchmark", "TomTom.Useful.Demo.Application.Benchmark\TomTom.Useful.Demo.Application.Benchmark.csproj", "{7762F104-A553-4DB9-8159-833A8D5D1CF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{8ECCD533-6A96-4E53-AAA2-47D786B7393A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ECCD533-6A96-4E53-AAA2-47D786B7393A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ECCD533-6A96-4E53-AAA2-47D786B7393A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7762F104-A553-4DB9-8159-833A8D5D1CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7762F104-A553-4DB9-8159-833A8D5D1CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7762F104-A553-4DB9-8159-833A8D5D1CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7762F104-A553-4DB9-8159-833A8D5D1CF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{F9B9A01B-A1A4-4787-AB81-881BBE1E9EAB} = {983C3DC0-5043-43DA-91A4-35B092A708E3}
 		{3990A854-F322-4D75-9D0C-623958D1A66E} = {983C3DC0-5043-43DA-91A4-35B092A708E3}
 		{8ECCD533-6A96-4E53-AAA2-47D786B7393A} = {983C3DC0-5043-43DA-91A4-35B092A708E3}
+		{7762F104-A553-4DB9-8159-833A8D5D1CF1} = {3458C0A8-8606-4B6B-872E-83E51AEC4958}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {160DF3C2-75B3-4DB3-A39F-B4291A5E18A9}

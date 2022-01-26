@@ -82,7 +82,7 @@ namespace TomTom.Useful.Messaging.InMemory
             }
         }
 
-        private class Context : ICurrentMessageContext
+        public class Context : ICurrentMessageContext
         {
             public Task Ack()
             {
