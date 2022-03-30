@@ -1,6 +1,6 @@
 ﻿namespace TomTom.Useful.EventSourcing
 {
-    public static class AggregateEventApplier<TAggregate> where TAggregate : IAggregate
+    public static class AggregateEventApplier<TIdentity, TAggregate> where TAggregate : IAggregate<TIdentity>
     {
         private static readonly Dictionary<Type, System.Reflection.MethodInfo> ApplyMethods;
         static AggregateEventApplier()

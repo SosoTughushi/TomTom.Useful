@@ -17,7 +17,6 @@
     <ProjectReference Include="..\..\TomTom.Useful.CQRS\TomTom.Useful.CQRS.csproj" />
     <ProjectReference Include="..\..\TomTom.Useful.EventSourcing\TomTom.Useful.EventSourcing.csproj" />
     <ProjectReference Include="..\..\TomTom.Useful.Messaging.InMemory\TomTom.Useful.Messaging.InMemory.csproj" />
-    <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Commands\TomTom.Useful.Demo.Domain.Commands.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Events\TomTom.Useful.Demo.Domain.Events.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
   </ItemGroup>

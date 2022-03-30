@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TomTom.Useful.Repositories.Abstractions;
+﻿using TomTom.Useful.Repositories.Abstractions;
 
 namespace TomTom.Useful.EventSourcing
 {
     public class EventSourcedAggregateRepository<TIdentity, TAggregate> : IEntityByKeyProvider<TIdentity, TAggregate>
         where TAggregate : IAggregate<TIdentity>, new()
     {
-        private readonly IEventRepository<TIdentity> eventRepository;
+        private readonly IEventStore<TIdentity> eventRepository;
 
-        public EventSourcedAggregateRepository(IEventRepository<TIdentity> eventRepository)
+        public EventSourcedAggregateRepository(IEventStore<TIdentity> eventRepository)
         {
             this.eventRepository = eventRepository;
         }
@@ -23,7 +18,7 @@ namespace TomTom.Useful.EventSourcing
 
             var aggregate = new TAggregate();
 
-            AggregateEventApplier<TAggregate>.ApplyEvents(aggregate, events);
+            AggregateEventApplier<TIdentity, TAggregate>.ApplyEvents(aggregate, events);
 
             return aggregate;
         }

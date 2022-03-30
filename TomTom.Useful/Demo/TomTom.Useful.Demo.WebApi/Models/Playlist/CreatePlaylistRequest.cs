@@ -7,10 +7,4 @@ namespace TomTom.Useful.Demo.WebApi.Models.Playlist
         [Required]
         public string Title { get; set; } = String.Empty;
     }
-
-    public record PublishPlaylistRequest
-    {
-        [Required]
-        public Guid PlaylistId { get; set; }
-    }
 }

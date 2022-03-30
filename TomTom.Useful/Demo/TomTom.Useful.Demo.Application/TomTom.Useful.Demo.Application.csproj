@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
@@ -15,7 +16,6 @@
     <ProjectReference Include="..\..\TomTom.Useful.CQRS\TomTom.Useful.CQRS.csproj" />
     <ProjectReference Include="..\..\TomTom.Useful.Messaging.InMemory\TomTom.Useful.Messaging.InMemory.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Application.Projections\TomTom.Useful.Demo.Application.Projections.csproj" />
-    <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Commands\TomTom.Useful.Demo.Domain.Commands.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain.Identities\TomTom.Useful.Demo.Domain.Identities.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Demo.Domain\TomTom.Useful.Demo.Domain.csproj" />
   </ItemGroup>

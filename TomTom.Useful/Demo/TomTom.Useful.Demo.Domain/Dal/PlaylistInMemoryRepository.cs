@@ -1,11 +1,9 @@
 ﻿using TomTom.Useful.Demo.Domain.Identities;
 using TomTom.Useful.Repositories.Abstractions;
-using TomTom.Useful.Demo.Domain.Playlist;
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Hosting;
 using TomTom.Useful.EventSourcing;
 using TomTom.Useful.Messaging;
-using TomTom.Useful.Demo.Domain.Events.Playlist;
 
 namespace TomTom.Useful.Demo.Domain.Dal
 {
@@ -62,7 +60,7 @@ namespace TomTom.Useful.Demo.Domain.Dal
         {
             var playlist = playlists.GetOrAdd(@event.SourceAggregateId, (key) => new Playlist.Playlist());
 
-            AggregateEventApplier<Playlist.Playlist>.ApplyEvents(playlist, Enumerable.Repeat(@event, 1));
+            AggregateEventApplier<PlaylistIdentity, Playlist.Playlist>.ApplyEvents(playlist, Enumerable.Repeat(@event, 1));
         }
     }
 }

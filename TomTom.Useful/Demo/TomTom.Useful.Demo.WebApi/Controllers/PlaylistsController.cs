@@ -6,6 +6,9 @@ using TomTom.Useful.Demo.Domain.Identities;
 using TomTom.Useful.Demo.WebApi.Models.Playlist;
 using TomTom.Useful.Demo.WebApi.Models;
 using TomTom.Useful.Demo.Application.Playlist;
+using MediatR;
+using TomTom.Useful.Demo.Application.Commands.Playlist;
+using TomTom.Useful.Demo.Application.Queries.Playlists;
 
 namespace TomTom.Useful.Demo.WebApi.Controllers
 {
@@ -13,13 +16,11 @@ namespace TomTom.Useful.Demo.WebApi.Controllers
     [ApiController]
     public class PlaylistsController : ControllerBase
     {
-        private readonly IPlaylistWriter playlistWriter;
-        private readonly IPlaylistReader playlistReader;
+        private readonly IMediator mediator;
 
-        public PlaylistsController(IPlaylistWriter playlistWriter, IPlaylistReader playlistReader)
+        public PlaylistsController(IMediator mediator)
         {
-            this.playlistWriter = playlistWriter;
-            this.playlistReader = playlistReader;
+            this.mediator = mediator;
         }
 
         [HttpGet]
@@ -27,7 +28,7 @@ namespace TomTom.Useful.Demo.WebApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var context = this.ControllerContext.ToDemoAppContext();
-            var playlistDtos = await this.playlistReader.GetAll(context);
+            var playlistDtos = await this.mediator.Send(new GetPlaylists(context));
 
             var model = playlistDtos.Select(MapToModel).ToList();
 
@@ -40,7 +41,8 @@ namespace TomTom.Useful.Demo.WebApi.Controllers
         public async Task<IActionResult> GetPlaylist([FromRoute] Guid playlistId)
         {
             var context = this.ControllerContext.ToDemoAppContext();
-            var playlistDto = await this.playlistReader.Get(playlistId, context);
+            var playlistDto = await this.mediator.Send(new GetPlaylist(playlistId, context));
+
             if (playlistDto == null)
             {
                 return this.NotFound();
@@ -57,14 +59,15 @@ namespace TomTom.Useful.Demo.WebApi.Controllers
         public async Task<IActionResult> CreatePlaylist([FromBody] CreatePlaylistRequest request)
         {
             var context = this.ControllerContext.ToDemoAppContext();
-            var result = await this.playlistWriter.Create(request.Title, context);
+            var command = new CreatePlaylistCommand(request.Title, context);
+            var result = await this.mediator.Send(command);
 
-            if(result.Success)
+            if (result.Success)
             {
                 return this.CreatedAtAction(nameof(GetPlaylist), new { playlistId = result.Value }, new { id = result.Value });
             }
 
-            switch(result.Error)
+            switch (result.Error)
             {
                 case CreatePlaylistFailureReason.TitleAlreadyExists:
                     return this.BadRequest("Title Already Exists");
@@ -75,20 +78,20 @@ namespace TomTom.Useful.Demo.WebApi.Controllers
             }
         }
 
-        [HttpPost("published")]
-        public async Task<IActionResult> PublishPlaylist([FromBody] PublishPlaylistRequest request)
+        [HttpPut("{playlistId}/publish")]
+        public async Task<IActionResult> PublishPlaylist([FromRoute] Guid playlistId)
         {
             var context = this.ControllerContext.ToDemoAppContext();
+            var command = new PublishPlaylistCommand(playlistId, context);
+            var result = await this.mediator.Send(command);
 
-            var result = await this.playlistWriter.Publish(request.PlaylistId, context);
 
-            
-            if(result.Success)
+            if (result.Success)
             {
                 return this.Ok();
             }
 
-            switch(result.Error)
+            switch (result.Error)
             {
                 case PublishPlaylistFailureReason.AlreadyPublished:
                     return this.Conflict();

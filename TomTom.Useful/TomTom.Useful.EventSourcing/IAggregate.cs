@@ -1,29 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TomTom.Useful.EventSourcing
+﻿namespace TomTom.Useful.EventSourcing
 {
-    public interface IAggregate
+    public interface IAggregate<TIdentity> 
     {
         long Version { get; set; }
+        IEnumerable<Event<TIdentity>> GetUncommitedEvents();
+        void CleanUncommitedEvents();
     }
-    public interface IAggregate<TIdentity> : IAggregate
+
+    public class AggregateBase<TIdentity> : IAggregate<TIdentity>
     {
-        TIdentity Id { get; }
+        internal readonly List<Event<TIdentity>> _uncommitedEvents = new List<Event<TIdentity>>();
+        public long Version { get; set; }
+
+        public void CleanUncommitedEvents()
+        {
+            _uncommitedEvents.Clear();
+        }
+
+        public IEnumerable<Event<TIdentity>> GetUncommitedEvents()
+        {
+            return _uncommitedEvents;
+        }
     }
 
     public static class AggregateExtensions
     {
-        public static TEvent EmitEvent<TAggregate, TEvent>(this TAggregate aggregate, TEvent @event)
-            where TEvent : Event
-            where TAggregate : IAggregate, IEmitsEvent<TEvent>
+        public static void EmitEvent<TAggregate, TIdentity, TEvent>(this TAggregate aggregate, TEvent @event)
+            where TEvent : Event<TIdentity>
+            where TAggregate : AggregateBase<TIdentity> , IEmitsEvent<TEvent>
         {
             aggregate.Version++;
             aggregate.Apply(@event);
-            return @event;
+            aggregate._uncommitedEvents.Add(@event);
         }
     }
 }

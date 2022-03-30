@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TomTom.Messaging.Abstractions\TomTom.Useful.Messaging.csproj" />
-    <ProjectReference Include="..\TomTom.Useful.CQRS\TomTom.Useful.CQRS.csproj" />
     <ProjectReference Include="..\TomTom.Useful.Repositories.Abstractions\TomTom.Useful.Repositories.Abstractions.csproj" />
   </ItemGroup>
 
