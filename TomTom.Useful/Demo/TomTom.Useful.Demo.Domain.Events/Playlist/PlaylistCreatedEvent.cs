@@ -5,7 +5,9 @@ namespace TomTom.Useful.Demo.Domain.Events.Playlist
 {
     public class PlaylistCreatedEvent : PlaylistEventBase
     {
-        public PlaylistCreatedEvent(string title, ExplorerIdentity explorerId, DateTime creationTimestamp)
+        public PlaylistCreatedEvent(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string correlationId, string causedById,
+            string title, ExplorerIdentity explorerId, DateTime creationTimestamp)
+            : base(sourceAggregateId, sourceAggregateVersion, correlationId, causedById)
         {
             Title = title;
             ExplorerId = explorerId;

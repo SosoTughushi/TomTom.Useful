@@ -1,6 +1,6 @@
 ﻿namespace TomTom.Useful.Repositories.Mongo
 {
-    public class MongoConifgurations
+    public class MongoConfigurations
     {
         public string MongoUrl { get; set; }
 

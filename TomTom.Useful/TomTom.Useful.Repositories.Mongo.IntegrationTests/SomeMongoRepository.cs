@@ -7,7 +7,7 @@ namespace TomTom.Useful.Repositories.Mongo.IntegrationTests
 {
     public class SomeMongoRepository : MongoRepository<string, SomeMongoEntity>
     {
-        public SomeMongoRepository(MongoConifgurations conifgurations, IMongoDatabase database) : base(conifgurations, database)
+        public SomeMongoRepository(MongoConfigurations configurations, IMongoDatabase database) : base(configurations, database)
         {
         }
     }

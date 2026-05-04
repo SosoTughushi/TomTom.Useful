@@ -25,7 +25,7 @@ namespace TomTom.Useful.Demo.Application.CommandHandlers
                 return new CreatePlaylistResult(CreatePlaylistFailureReason.TitleAlreadyExists);
             }
 
-            var playlist = new Domain.Playlist.Playlist(command.Title, command.ExplorerId, command.CreationTimestamp);
+            var playlist = new Domain.Playlist.Playlist(new PlaylistIdentity(Guid.NewGuid()), command.Title, command.ExplorerId, command.CreationTimestamp);
 
             var result = await this.playlistInserter.Insert(playlist);
 

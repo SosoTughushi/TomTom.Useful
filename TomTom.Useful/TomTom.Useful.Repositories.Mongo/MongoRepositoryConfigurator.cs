@@ -8,16 +8,16 @@ namespace TomTom.Useful.Repositories.Mongo
     public class MongoRepositoryConfigurator
     {
         private readonly IServiceCollection collection;
-        private readonly MongoConifgurations configurations;
+        private readonly MongoConfigurations configurations;
 
-        public MongoRepositoryConfigurator(IServiceCollection collection, MongoConifgurations configurations)
+        public MongoRepositoryConfigurator(IServiceCollection collection, MongoConfigurations configurations)
         {
             this.collection = collection;
             this.configurations = configurations;
         }
 
         public MongoRepositoryConfigurator RegisterRepository<TRepository, TIdentity, TEntity>
-            (Func<MongoConifgurations, IServiceProvider, TRepository> factory)
+            (Func<MongoConfigurations, IServiceProvider, TRepository> factory)
             where TRepository : MongoRepository<TIdentity, TEntity>
             where TEntity : MongoEntity<TIdentity>
         {

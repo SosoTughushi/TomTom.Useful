@@ -10,5 +10,9 @@ namespace TomTom.Useful.Demo.Domain.Events.Playlist
 {
     public class PlaylistEventBase : Event<PlaylistIdentity>
     {
+        protected PlaylistEventBase(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string correlationId, string causedById)
+            : base(sourceAggregateId, sourceAggregateVersion, correlationId, causedById)
+        {
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace TomTom.Useful.Repositories.Mongo.IntegrationTests
                 .AddJsonFile("testsettings.json")
                 .Build();
 
-            services.AddMongoRepositories(new MongoConifgurations
+            services.AddMongoRepositories(new MongoConfigurations
             {
                 MongoUrl = configurations["mongoConnString"],
                 Schema = "IntegrationTests"

@@ -29,11 +29,11 @@ namespace TomTom.Useful.Repositories.Mongo
         protected readonly IMongoCollection<TMongoEntity> collection;
         protected readonly ResultFactory<object> resultFactory = Result.GetFactory<object>();
 
-        public MongoRepository(MongoConifgurations conifgurations, IMongoDatabase database)
+        public MongoRepository(MongoConfigurations configurations, IMongoDatabase database)
         {
             // TODO: Add guard clauses for mongoUrl and schema (not null or empty)
             this.database = database;
-            this.collection = this.database.GetCollection<TMongoEntity>(string.Join(".", conifgurations.Schema, typeof(TMongoEntity).Name));
+            this.collection = this.database.GetCollection<TMongoEntity>(string.Join(".", configurations.Schema, typeof(TMongoEntity).Name));
         }
 
         public async Task<TMongoEntity> Get(TIdentity identity)

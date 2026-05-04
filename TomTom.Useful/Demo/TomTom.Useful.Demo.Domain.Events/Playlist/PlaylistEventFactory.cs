@@ -5,17 +5,28 @@ namespace TomTom.Useful.Demo.Domain.Events.Playlist
 {
     public static class PlaylistEventFactory
     {
-        public static PlaylistCreatedEvent PlaylistCreated(string title, ExplorerIdentity explorerId, DateTime creationTimestamp)
+        public static PlaylistCreatedEvent PlaylistCreated(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string correlationId, string causedById,
+            string title, ExplorerIdentity explorerId, DateTime creationTimestamp)
         {
             return new PlaylistCreatedEvent(
+                sourceAggregateId: sourceAggregateId,
+                sourceAggregateVersion: sourceAggregateVersion,
+                correlationId: correlationId,
+                causedById: causedById,
                 title: title,
                 explorerId: explorerId,
-                creationTimestamp: DateTime.UtcNow);
+                creationTimestamp: creationTimestamp);
         }
 
-        public static PlaylistPublished PlaylistPublished()
+        public static PlaylistPublished PlaylistPublished(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string correlationId, string causedById,
+            DateTime publishTimestamp)
         {
-            return new PlaylistPublished(DateTime.UtcNow);
+            return new PlaylistPublished(
+                sourceAggregateId: sourceAggregateId,
+                sourceAggregateVersion: sourceAggregateVersion,
+                correlationId: correlationId,
+                causedById: causedById,
+                publishTimestamp: publishTimestamp);
         }
     }
 }

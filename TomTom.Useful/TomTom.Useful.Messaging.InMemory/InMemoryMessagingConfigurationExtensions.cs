@@ -4,7 +4,7 @@ using TomTom.Useful.Serializers.Json;
 
 namespace TomTom.Useful.Messaging.InMemory
 {
-    public static class InMemoryMessagingConfugurationExtensions
+    public static class InMemoryMessagingConfigurationExtensions
     {
         public static void AddInMemoryBus(this IServiceCollection services, Action<InMemoryBusConfigurationBuilder> configure)
         {
@@ -22,7 +22,7 @@ namespace TomTom.Useful.Messaging.InMemory
                 this.services = services;
             }
 
-            public InMemoryBusConfigurationBuilder AddInMemoryMesageBus<TMessage>(InMemoryBusSettings settings) where TMessage : IMessage
+            public InMemoryBusConfigurationBuilder AddInMemoryMessageBus<TMessage>(InMemoryBusSettings settings) where TMessage : IMessage
             {
                 services.AddSingleton(provider =>
                 {

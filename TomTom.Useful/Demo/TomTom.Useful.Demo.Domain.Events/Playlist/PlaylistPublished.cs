@@ -5,7 +5,9 @@ namespace TomTom.Useful.Demo.Domain.Events.Playlist
 {
     public class PlaylistPublished : PlaylistEventBase
     {
-        public PlaylistPublished(DateTime publishTimestamp)
+        public PlaylistPublished(PlaylistIdentity sourceAggregateId, long sourceAggregateVersion, string correlationId, string causedById,
+            DateTime publishTimestamp)
+            : base(sourceAggregateId, sourceAggregateVersion, correlationId, causedById)
         {
             this.PublishTimestamp = publishTimestamp;
         }

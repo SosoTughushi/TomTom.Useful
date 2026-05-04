@@ -51,6 +51,6 @@ namespace TomTom.Useful.CQRS
 
         public string? CausedById { get; set; }
 
-        public TTargetIdentity TargetIdentity { get; } = default;
+        public TTargetIdentity TargetIdentity { get; set; } = default;
     }
 }

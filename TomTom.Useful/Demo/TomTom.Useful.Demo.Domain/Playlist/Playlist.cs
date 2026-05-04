@@ -11,9 +11,12 @@ namespace TomTom.Useful.Demo.Domain.Playlist
         public Playlist()
         {
         }
-        public Playlist(string title, ExplorerIdentity ownerId, DateTime creationTimestamp)
+        public Playlist(PlaylistIdentity id, string title, ExplorerIdentity ownerId, DateTime creationTimestamp)
         {
-            this.EmitEvent<Playlist, PlaylistIdentity, PlaylistCreatedEvent>(PlaylistEventFactory.PlaylistCreated(title, ownerId, creationTimestamp));
+            Id = id;
+            this.EmitEvent<Playlist, PlaylistIdentity, PlaylistCreatedEvent>(
+                PlaylistEventFactory.PlaylistCreated(id, Version + 1, Guid.NewGuid().ToString(), string.Empty,
+                    title, ownerId, creationTimestamp));
         }
 
         public PlaylistIdentity Id { get; private set; }
@@ -30,7 +33,8 @@ namespace TomTom.Useful.Demo.Domain.Playlist
                 return false;
             }
 
-            this.EmitEvent<Playlist, PlaylistIdentity, PlaylistPublished>(PlaylistEventFactory.PlaylistPublished());
+            this.EmitEvent<Playlist, PlaylistIdentity, PlaylistPublished>(
+                PlaylistEventFactory.PlaylistPublished(Id, Version + 1, Guid.NewGuid().ToString(), string.Empty, DateTime.UtcNow));
 
             return true;
         }

@@ -9,7 +9,7 @@ namespace TomTom.Useful.Repositories.Mongo
     public static class MongoConfigurationExtensions
     {
         public static void AddMongoRepositories(this IServiceCollection collection,
-            MongoConifgurations configurations, Action<MongoRepositoryConfigurator> registrator)
+            MongoConfigurations configurations, Action<MongoRepositoryConfigurator> registrator)
         {
             var builder = new MongoRepositoryConfigurator(collection, configurations);
 

@@ -3,23 +3,23 @@
     public interface IAggregate<TIdentity> 
     {
         long Version { get; set; }
-        IEnumerable<Event<TIdentity>> GetUncommitedEvents();
-        void CleanUncommitedEvents();
+        IEnumerable<Event<TIdentity>> GetUncommittedEvents();
+        void CleanUncommittedEvents();
     }
 
     public class AggregateBase<TIdentity> : IAggregate<TIdentity>
     {
-        internal readonly List<Event<TIdentity>> _uncommitedEvents = new List<Event<TIdentity>>();
+        internal readonly List<Event<TIdentity>> _uncommittedEvents = new List<Event<TIdentity>>();
         public long Version { get; set; }
 
-        public void CleanUncommitedEvents()
+        public void CleanUncommittedEvents()
         {
-            _uncommitedEvents.Clear();
+            _uncommittedEvents.Clear();
         }
 
-        public IEnumerable<Event<TIdentity>> GetUncommitedEvents()
+        public IEnumerable<Event<TIdentity>> GetUncommittedEvents()
         {
-            return _uncommitedEvents;
+            return _uncommittedEvents;
         }
     }
 
@@ -31,7 +31,7 @@
         {
             aggregate.Version++;
             aggregate.Apply(@event);
-            aggregate._uncommitedEvents.Add(@event);
+            aggregate._uncommittedEvents.Add(@event);
         }
     }
 }
